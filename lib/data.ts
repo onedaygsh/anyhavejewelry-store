@@ -11,6 +11,8 @@ export interface Product {
   featured?: boolean;
   image: string;
   imageSecondary?: string;
+  gallery?: string[];
+  detailContent?: string;
   metalOptions?: string[];
   carat?: string;
   cut?: string;

@@ -28,6 +28,8 @@ const emptyProduct: Product = {
   description: "",
   specs: [],
   image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&h=1000&fit=crop",
+  gallery: [],
+  detailContent: "",
 };
 
 export default function AdminProductsPage() {
@@ -207,10 +209,62 @@ function ProductForm({
             <input required value={form.material} onChange={(e) => setForm({ ...form, material: e.target.value })} className="w-full px-3 py-2 bg-cream border border-black/5 text-sm focus:outline-none focus:border-champagne" />
           </div>
           <ImagePreviewInput
-            label="Image Path *"
+            label="Main Image Path *"
             value={form.image}
             onChange={(value) => setForm({ ...form, image: value })}
           />
+
+          {/* Gallery */}
+          <div>
+            <label className="block text-xs text-charcoal/60 mb-2">Gallery Images</label>
+            <div className="space-y-2">
+              {(form.gallery || []).map((img, idx) => (
+                <div key={idx} className="flex items-center gap-2">
+                  <ImagePreviewInput
+                    label={`Gallery #${idx + 1}`}
+                    value={img}
+                    onChange={(value) => {
+                      const g = [...(form.gallery || [])];
+                      g[idx] = value;
+                      setForm({ ...form, gallery: g });
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const g = [...(form.gallery || [])];
+                      g.splice(idx, 1);
+                      setForm({ ...form, gallery: g });
+                    }}
+                    className="p-2 text-red-500 hover:bg-red-50 rounded"
+                    title="Remove"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, gallery: [...(form.gallery || []), ""] })}
+                className="text-sm text-champagne hover:text-charcoal transition-colors"
+              >
+                + Add gallery image
+              </button>
+            </div>
+          </div>
+
+          {/* Detail Content */}
+          <div>
+            <label className="block text-xs text-charcoal/60 mb-1">Detail Page Content (HTML supported)</label>
+            <textarea
+              rows={6}
+              value={form.detailContent || ""}
+              onChange={(e) => setForm({ ...form, detailContent: e.target.value })}
+              placeholder="Enter product detail content... You can use HTML tags for rich formatting."
+              className="w-full px-3 py-2 bg-cream border border-black/5 text-sm focus:outline-none focus:border-champagne resize-none font-mono"
+            />
+            <p className="text-[10px] text-charcoal/30 mt-1">Supports HTML tags for rich formatting.</p>
+          </div>
           <div>
             <label className="block text-xs text-charcoal/60 mb-1">Tier *</label>
             <select value={form.tier} onChange={(e) => setForm({ ...form, tier: e.target.value as Product["tier"] })} className="w-full px-3 py-2 bg-cream border border-black/5 text-sm focus:outline-none focus:border-champagne">

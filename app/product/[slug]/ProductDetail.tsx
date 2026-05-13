@@ -61,7 +61,11 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
 
   const dateLocale = locale === "zh" ? "zh-CN" : "en-US";
 
-  const images = [product.image, product.imageSecondary].filter(Boolean) as string[];
+  const images = [
+    product.image,
+    product.imageSecondary,
+    ...(product.gallery || []),
+  ].filter(Boolean) as string[];
   if (images.length === 0) images.push(product.image);
 
   const metalPriceAdjust: Record<string, number> = {
@@ -317,6 +321,19 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             </div>
           </motion.div>
         </div>
+
+        {/* Detail Content */}
+        {product.detailContent && (
+          <div className="border-t border-black/5 pt-16 mb-24">
+            <h2 className="font-serif text-2xl text-charcoal mb-8">
+              {locale === "en" ? "Product Details" : "产品详情"}
+            </h2>
+            <div
+              className="prose prose-stone max-w-none text-charcoal/70 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: product.detailContent }}
+            />
+          </div>
+        )}
 
         {/* Reviews */}
         {productReviews.length > 0 && (
