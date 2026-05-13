@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Locale, translations } from "./translations";
 import { getAdminTranslations, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
+import { getStoredCountry } from "@/lib/countries";
 
 const STORAGE_KEY = "anyhave-jewelry-locale";
 const DEFAULT_LOCALE: Locale = "en";
@@ -25,6 +26,9 @@ export function useI18n() {
 
 function getInitialLocale(): Locale {
   if (typeof window === "undefined") return DEFAULT_LOCALE;
+  // Country selection takes priority
+  const country = getStoredCountry();
+  if (country && SUPPORTED_LOCALES.includes(country.locale)) return country.locale;
   const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
   if (stored && SUPPORTED_LOCALES.includes(stored)) return stored;
   const browserLang = navigator.language.slice(0, 2) as Locale;

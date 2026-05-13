@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ShoppingBag, Search, Globe, Heart } from "lucide-react";
+import { Menu, X, ShoppingBag, Search, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "./CartProvider";
 import { useI18n } from "@/lib/i18n/context";
 import SearchModal from "./SearchModal";
-import CurrencySwitcher from "./CurrencySwitcher";
+import CountrySelector from "./CountrySelector";
 import { getSiteSettings, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
 
 export default function Navbar() {
@@ -15,7 +15,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { count, setIsOpen } = useCart();
-  const { locale, setLocale, t } = useI18n();
+  const { locale, t } = useI18n();
   const [logo, setLogo] = useState("Anyhave");
   const [bookAppointment, setBookAppointment] = useState("Book Appointment");
 
@@ -41,11 +41,6 @@ export default function Navbar() {
       if (key === ADMIN_KEYS.siteSettings) loadSettings();
     });
   }, [locale]);
-
-  const toggleLocale = () => {
-    const next = locale === "en" ? "zh" : "en";
-    setLocale(next);
-  };
 
   const navLinks = [
     { href: "/products/", label: t.nav.shop },
@@ -124,16 +119,8 @@ export default function Navbar() {
               </span>
             )}
           </button>
-          <button
-            onClick={toggleLocale}
-            className="hidden md:flex items-center gap-1 px-2 py-1 text-xs tracking-wide text-charcoal/70 hover:text-charcoal hover:bg-black/5 rounded transition-colors"
-            title={locale === "en" ? "Switch to Chinese" : "Switch to English"}
-          >
-            <Globe className="w-4 h-4" />
-            <span className="uppercase">{locale}</span>
-          </button>
           <div className="hidden md:flex ml-1">
-            <CurrencySwitcher />
+            <CountrySelector />
           </div>
         </div>
       </div>
@@ -165,15 +152,8 @@ export default function Navbar() {
             >
               <Heart className="w-5 h-5 text-charcoal/70" />
             </Link>
-            <button
-              onClick={() => { toggleLocale(); setMenuOpen(false); }}
-              className="flex items-center gap-1 px-2 py-1 text-xs tracking-wide text-charcoal/70 hover:text-charcoal hover:bg-black/5 rounded transition-colors"
-            >
-              <Globe className="w-4 h-4" />
-              <span className="uppercase">{locale}</span>
-            </button>
             <div className="flex items-center">
-              <CurrencySwitcher />
+              <CountrySelector />
             </div>
           </div>
         </div>

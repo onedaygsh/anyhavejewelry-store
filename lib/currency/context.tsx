@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 import { CurrencyCode } from "./types";
 import { defaultCurrency, currencyList } from "./rates";
 import { detectCurrencyFromLocale } from "./utils";
+import { getStoredCountry } from "@/lib/countries";
 
 const STORAGE_KEY = "anyhave-currency";
 
@@ -26,16 +27,26 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? (localStorage.getItem(STORAGE_KEY) as CurrencyCode | null) : null;
+    if (typeof window === "undefined") {
+      setMounted(true);
+      return;
+    }
+    // Country selection takes priority
+    const country = getStoredCountry();
+    if (country && currencyList.includes(country.currency)) {
+      setCurrencyState(country.currency);
+      localStorage.setItem(STORAGE_KEY, country.currency);
+      setMounted(true);
+      return;
+    }
+    const stored = localStorage.getItem(STORAGE_KEY) as CurrencyCode | null;
     if (stored && currencyList.includes(stored)) {
       setCurrencyState(stored);
     } else {
       // Auto-detect from browser locale on first visit
       const detected = detectCurrencyFromLocale();
       setCurrencyState(detected);
-      if (typeof window !== "undefined") {
-        localStorage.setItem(STORAGE_KEY, detected);
-      }
+      localStorage.setItem(STORAGE_KEY, detected);
     }
     setMounted(true);
   }, []);
