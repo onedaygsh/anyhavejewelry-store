@@ -30,7 +30,7 @@ jobs:
       - name: Deploy to VPS via rsync
         uses: Burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --exclude uploads
           path: out/
           remote_path: /var/www/html/
           remote_host: 31.220.57.114
