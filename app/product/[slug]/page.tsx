@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { products, getProductBySlug, Product } from "@/lib/data";
+import { products, getProductBySlug } from "@/lib/data";
 import ProductDetail from "./ProductDetail";
-import { ProductJsonLd } from "@/components/JsonLd";
+import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return products.map((p) => ({
@@ -20,9 +20,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       product.name,
       product.tier,
       product.material,
+      product.cut || "",
+      product.carat || "",
       "engagement ring",
       "moissanite",
       "lab grown diamond",
+      "custom jewelry",
+      "ethical jewelry",
     ],
     openGraph: {
       title: `${product.name} | Anyhave Jewelry`,
@@ -50,8 +54,16 @@ export default function Page({ params }: { params: { slug: string } }) {
   if (!product) {
     notFound();
   }
+
+  const breadcrumbs = [
+    { name: "Shop", url: "https://anyhavejewelry.com/products/" },
+    { name: product.tierLabel, url: `https://anyhavejewelry.com/products/?tier=${product.tier}` },
+    { name: product.name, url: `https://anyhavejewelry.com/product/${product.slug}/` },
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
       <ProductJsonLd product={product} />
       <ProductDetail product={product} />
     </>

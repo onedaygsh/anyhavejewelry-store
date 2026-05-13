@@ -9,7 +9,7 @@ import CollectionShowcase from "@/components/CollectionShowcase";
 import TechnologySection from "@/components/TechnologySection";
 import Testimonials from "@/components/Testimonials";
 import Commitment from "@/components/Commitment";
-import InspireMoments from "@/components/InspireMoments";
+import GemstoneComparison from "@/components/GemstoneComparison";
 
 export default function Home() {
   return (
@@ -17,6 +17,7 @@ export default function Home() {
       <Hero />
       <Features />
       <Bestsellers />
+      <GemstoneComparison />
       <ShopByShape />
       <PromoSection />
       <RingBuilderCTA />
