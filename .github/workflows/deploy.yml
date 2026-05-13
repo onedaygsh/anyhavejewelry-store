@@ -1,0 +1,46 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Deploy to VPS via rsync
+        uses: Burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avzr --delete
+          path: out/
+          remote_path: /var/www/html/
+          remote_host: 31.220.57.114
+          remote_user: root
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Fix permissions & reload nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 31.220.57.114
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            chown -R www-data:www-data /var/www/html
+            chmod -R 755 /var/www/html
+            nginx -t && nginx -s reload
