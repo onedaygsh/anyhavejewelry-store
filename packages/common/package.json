@@ -1,0 +1,20 @@
+{
+  "name": "@anyhave/common",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.43.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@anyhave/config": "file:../config",
+    "typescript": "^5.4.0"
+  }
+}
