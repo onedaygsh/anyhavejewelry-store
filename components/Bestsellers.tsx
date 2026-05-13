@@ -4,11 +4,11 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { products } from "@/lib/data";
+import { products as defaultProducts } from "@/lib/data";
 import { useCurrency } from "@/lib/currency/context";
 import { formatPrice } from "@/lib/currency/utils";
 import { useI18n } from "@/lib/i18n/context";
-import { getHomepageSections, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
+import { getHomepageSections, getAdminProducts, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
 
 export default function Bestsellers() {
   const { currency } = useCurrency();
@@ -17,6 +17,7 @@ export default function Bestsellers() {
 
   const [label, setLabel] = useState("Best Selling");
   const [title, setTitle] = useState("DIAMAURA'S BEST SELLING");
+  const [products, setProducts] = useState(defaultProducts);
 
   const loadData = () => {
     const sections = getHomepageSections();
@@ -25,10 +26,16 @@ export default function Bestsellers() {
     setTitle(isZh ? sections.bestsellers.titleZh : sections.bestsellers.titleEn);
   };
 
+  const loadProducts = () => {
+    setProducts(getAdminProducts(defaultProducts));
+  };
+
   useEffect(() => {
     loadData();
+    loadProducts();
     return subscribeToAdminData((key) => {
       if (key === ADMIN_KEYS.homepageSections) loadData();
+      if (key === ADMIN_KEYS.products) loadProducts();
     });
   }, [locale]);
 

@@ -4,7 +4,8 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, ShoppingBag } from "lucide-react";
-import { getFeaturedProducts } from "@/lib/data";
+import { products as defaultProducts } from "@/lib/data";
+import { getAdminProducts, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
 import { useCart } from "./CartProvider";
 import { formatPrice } from "@/lib/currency/utils";
 import { useCurrency } from "@/lib/currency/context";
@@ -13,10 +14,20 @@ import { useI18n } from "@/lib/i18n/context";
 export default function FeaturedProducts() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const featured = getFeaturedProducts();
+  const [products, setProducts] = useState(defaultProducts);
   const { addItem } = useCart();
   const { currency } = useCurrency();
   const { t } = useI18n();
+
+  useEffect(() => {
+    const load = () => setProducts(getAdminProducts(defaultProducts));
+    load();
+    return subscribeToAdminData((key) => {
+      if (key === ADMIN_KEYS.products) load();
+    });
+  }, []);
+
+  const featured = products.filter((p) => p.featured);
 
   return (
     <section className="bg-white py-24 md:py-32">

@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
-import { products } from "@/lib/data";
+import { products as defaultProducts } from "@/lib/data";
+import { getAdminProducts, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
 import { formatPrice } from "@/lib/currency/utils";
 import { useCurrency } from "@/lib/currency/context";
 import { useI18n } from "@/lib/i18n/context";
@@ -15,9 +16,18 @@ interface SearchModalProps {
 
 export default function SearchModal({ open, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
+  const [products, setProducts] = useState(defaultProducts);
   const inputRef = useRef<HTMLInputElement>(null);
   const { currency } = useCurrency();
   const { t } = useI18n();
+
+  useEffect(() => {
+    const load = () => setProducts(getAdminProducts(defaultProducts));
+    load();
+    return subscribeToAdminData((key) => {
+      if (key === ADMIN_KEYS.products) load();
+    });
+  }, []);
 
   const results = useMemo(() => {
     if (!query.trim()) return [];
@@ -28,7 +38,7 @@ export default function SearchModal({ open, onClose }: SearchModalProps) {
         p.material.toLowerCase().includes(q) ||
         p.tierLabel.toLowerCase().includes(q)
     );
-  }, [query]);
+  }, [query, products]);
 
   useEffect(() => {
     if (open) {
