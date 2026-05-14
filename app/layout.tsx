@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnnouncementBar from "@/components/AnnouncementBar";
+import ScrollToTop from "@/components/ScrollToTop";
 import { CartProvider } from "@/components/CartProvider";
 import { WishlistProvider } from "@/components/WishlistProvider";
 import { I18nProvider } from "@/lib/i18n/context";
@@ -79,6 +80,7 @@ export default function RootLayout({
               <Navbar />
               <main className="flex-1">{children}</main>
               <Footer />
+              <ScrollToTop />
             </WishlistProvider>
           </CartProvider>
           </CurrencyProvider>
