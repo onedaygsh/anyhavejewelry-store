@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Product, products } from "@/lib/data";
 import {
   getAdminProducts,
@@ -8,8 +8,12 @@ import {
   addAdminProduct,
   updateAdminProduct,
   deleteAdminProduct,
+  getHomepageSections,
+  saveHomepageSections,
+  subscribeToAdminData,
+  ADMIN_KEYS,
 } from "@/lib/admin-data";
-import { Plus, Pencil, Trash2, X, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Search, Star } from "lucide-react";
 import ImagePreviewInput from "@/components/admin/ImagePreviewInput";
 
 const tiers = [
@@ -37,6 +41,32 @@ export default function AdminProductsPage() {
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState<Product | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [bestsellerIds, setBestsellerIds] = useState<string[]>([]);
+
+  const loadBestsellerIds = () => {
+    const sections = getHomepageSections();
+    setBestsellerIds(sections.bestsellers.productIds || []);
+  };
+
+  useEffect(() => {
+    loadBestsellerIds();
+    return subscribeToAdminData((key) => {
+      if (key === ADMIN_KEYS.homepageSections) loadBestsellerIds();
+    });
+  }, []);
+
+  const toggleBestseller = (productId: string) => {
+    const sections = getHomepageSections();
+    const ids = [...sections.bestsellers.productIds];
+    const idx = ids.indexOf(productId);
+    if (idx >= 0) {
+      ids.splice(idx, 1);
+    } else {
+      ids.push(productId);
+    }
+    saveHomepageSections({ ...sections, bestsellers: { ...sections.bestsellers, productIds: ids } });
+    setBestsellerIds(ids);
+  };
 
   const filtered = useMemo(() => {
     return data.filter((p) =>
@@ -126,6 +156,17 @@ export default function AdminProductsPage() {
                 <td className="px-5 py-3 text-charcoal">¥{p.price.toLocaleString()}</td>
                 <td className="px-5 py-3 text-right">
                   <div className="flex items-center justify-end gap-2">
+                    <button
+                      onClick={() => toggleBestseller(p.id)}
+                      title={bestsellerIds.includes(p.id) ? "Remove from Bestsellers" : "Add to Bestsellers"}
+                      className={`p-1.5 transition-colors ${
+                        bestsellerIds.includes(p.id)
+                          ? "text-champagne hover:text-charcoal"
+                          : "text-charcoal/20 hover:text-champagne"
+                      }`}
+                    >
+                      <Star className="w-4 h-4" fill={bestsellerIds.includes(p.id) ? "currentColor" : "none"} />
+                    </button>
                     <button
                       onClick={() => openEdit(p)}
                       className="p-1.5 text-charcoal/40 hover:text-champagne transition-colors"
