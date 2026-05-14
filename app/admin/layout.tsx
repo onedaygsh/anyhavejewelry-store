@@ -17,6 +17,7 @@ import {
   Languages,
   LogOut,
   Wand2,
+  BarChart3,
 } from "lucide-react";
 
 const navItems = [
@@ -25,6 +26,7 @@ const navItems = [
   { href: "/admin/orders/", label: "Orders", icon: ShoppingCart },
   { href: "/admin/blog/", label: "Blog", icon: FileText },
   { href: "/admin/pages/", label: "Pages", icon: Layers },
+  { href: "/admin/comparison/", label: "Comparison", icon: BarChart3 },
   { href: "/admin/settings/", label: "Settings", icon: Settings },
   { href: "/admin/homepage/", label: "Homepage", icon: Home },
   { href: "/admin/about/", label: "About", icon: Info },

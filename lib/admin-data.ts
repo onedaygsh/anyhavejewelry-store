@@ -19,6 +19,7 @@ export const ADMIN_KEYS = {
   contactContent: LS_PREFIX + "contact-content",
   customizeContent: LS_PREFIX + "customize-content",
   translations: LS_PREFIX + "translations",
+  comparison: LS_PREFIX + "comparison",
 } as const;
 
 function broadcastSync(key: string) {
@@ -801,4 +802,82 @@ export function resetAdminTranslations() {
   if (typeof window === "undefined") return;
   localStorage.removeItem(TRANSLATIONS_KEY);
   broadcastSync(TRANSLATIONS_KEY);
+}
+
+// ==================== Gemstone Comparison ====================
+const COMPARISON_KEY = ADMIN_KEYS.comparison;
+
+export interface ComparisonRow {
+  label: string;
+  moissanite: string;
+  lab: string;
+  natural: string;
+}
+
+export interface ComparisonBadge {
+  name: string;
+  descriptionEn: string;
+  descriptionZh: string;
+}
+
+export interface ComparisonData {
+  labelEn: string;
+  labelZh: string;
+  titleEn: string;
+  titleZh: string;
+  subtitleEn: string;
+  subtitleZh: string;
+  rows: ComparisonRow[];
+  badges: ComparisonBadge[];
+  footerTextEn: string;
+  footerTextZh: string;
+}
+
+export const defaultComparisonData: ComparisonData = {
+  labelEn: "Expert Comparison",
+  labelZh: "专业对比",
+  titleEn: "Moissanite vs. Lab-Grown vs. Natural Diamond",
+  titleZh: "莫桑石 vs. 培育钻石 vs. 天然钻石",
+  subtitleEn: "An objective, data-driven comparison to help you make an informed decision. All metrics verified by independent gemological institutes.",
+  subtitleZh: "客观、数据驱动的对比，帮助您做出明智决定。所有指标均经过独立宝石学机构验证。",
+  rows: [
+    { label: "Brilliance (Refractive Index)", moissanite: "2.65 (Highest)", lab: "2.42", natural: "2.42" },
+    { label: "Fire (Dispersion)", moissanite: "0.104 (2.4x diamond)", lab: "0.044", natural: "0.044" },
+    { label: "Hardness (Mohs Scale)", moissanite: "9.25", lab: "10", natural: "10" },
+    { label: "Conflict Free", moissanite: "Yes", lab: "Yes", natural: "No" },
+    { label: "Environmentally Friendly", moissanite: "Yes", lab: "Yes", natural: "No" },
+    { label: "Certification", moissanite: "IGI / GRA", lab: "IGI / GIA", natural: "GIA / IGI" },
+    { label: "Color Range", moissanite: "D-E (Colorless)", lab: "D-F (Colorless)", natural: "D-Z (Varies)" },
+    { label: "Availability", moissanite: "Unlimited", lab: "Unlimited", natural: "Limited / Rare" },
+    { label: "Resale Value", moissanite: "Moderate", lab: "Growing", natural: "High (traditionally)" },
+  ],
+  badges: [
+    { name: "IGI", descriptionEn: "International Gemological Institute — independent certification for lab-grown diamonds and moissanite.", descriptionZh: "国际宝石学院——为培育钻石和莫桑石提供独立认证。" },
+    { name: "GIA", descriptionEn: "Gemological Institute of America — the world's foremost authority on diamond grading.", descriptionZh: "美国宝石学院——全球钻石分级最权威的机构。" },
+    { name: "GRA", descriptionEn: "Gem Research Academy — specialized certification for moissanite quality and authenticity.", descriptionZh: "宝石研究院——专注于莫桑石品质与真伪认证。" },
+  ],
+  footerTextEn: "Data source: IGI, GIA, GRA certification standards (2025)",
+  footerTextZh: "数据来源：IGI、GIA、GRA 认证标准 (2025)",
+};
+
+export function getComparisonData(): ComparisonData {
+  if (typeof window === "undefined") return defaultComparisonData;
+  try {
+    const raw = localStorage.getItem(COMPARISON_KEY);
+    if (!raw) return defaultComparisonData;
+    const parsed = JSON.parse(raw) as Partial<ComparisonData>;
+    const merged = deepMerge(
+      defaultComparisonData as unknown as Record<string, unknown>,
+      parsed as unknown as Record<string, unknown>
+    );
+    return merged as unknown as ComparisonData;
+  } catch {
+    return defaultComparisonData;
+  }
+}
+
+export function saveComparisonData(data: ComparisonData) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(COMPARISON_KEY, JSON.stringify(data));
+  broadcastSync(COMPARISON_KEY);
 }
