@@ -7,8 +7,9 @@ import {
   getHomepageSections,
   saveHomepageSections,
 } from "@/lib/admin-data";
-import { X, Plus, Save } from "lucide-react";
+import { X, Plus, Save, ChevronUp, ChevronDown } from "lucide-react";
 import ImagePreviewInput from "@/components/admin/ImagePreviewInput";
+import { products as allProducts } from "@/lib/data";
 
 export default function AdminHomepagePage() {
   const [sections, setSections] = useState<HomepageSections>(defaultHomepageSections);
@@ -96,8 +97,32 @@ export default function AdminHomepagePage() {
     });
   };
 
-  const updateBestsellers = (field: keyof HomepageSections["bestsellers"], value: string) => {
+  const updateBestsellers = (field: keyof HomepageSections["bestsellers"], value: string | string[]) => {
     setSections((prev) => ({ ...prev, bestsellers: { ...prev.bestsellers, [field]: value } }));
+  };
+
+  const toggleBestsellerProduct = (productId: string) => {
+    setSections((prev) => {
+      const ids = [...prev.bestsellers.productIds];
+      const idx = ids.indexOf(productId);
+      if (idx >= 0) {
+        ids.splice(idx, 1);
+      } else {
+        ids.push(productId);
+      }
+      return { ...prev, bestsellers: { ...prev.bestsellers, productIds: ids } };
+    });
+  };
+
+  const moveBestsellerProduct = (index: number, direction: "up" | "down") => {
+    setSections((prev) => {
+      const ids = [...prev.bestsellers.productIds];
+      const newIndex = direction === "up" ? index - 1 : index + 1;
+      if (newIndex < 0 || newIndex >= ids.length) return prev;
+      const [removed] = ids.splice(index, 1);
+      ids.splice(newIndex, 0, removed);
+      return { ...prev, bestsellers: { ...prev.bestsellers, productIds: ids } };
+    });
   };
 
   return (
@@ -676,6 +701,78 @@ export default function AdminHomepagePage() {
               placeholder="Title (ZH)"
               className="w-full px-3 py-2 bg-cream border border-black/5 text-sm focus:outline-none focus:border-champagne"
             />
+          </div>
+
+          {/* Product Selector */}
+          <div className="border-t border-black/5 pt-4">
+            <h3 className="text-sm font-medium text-charcoal mb-3">Selected Products ({sections.bestsellers.productIds.length})</h3>
+            {sections.bestsellers.productIds.length > 0 ? (
+              <div className="space-y-2 mb-4">
+                {sections.bestsellers.productIds.map((pid, i) => {
+                  const product = allProducts.find((p) => p.id === pid);
+                  return (
+                    <div key={pid} className="flex items-center gap-3 bg-cream px-3 py-2 rounded">
+                      <span className="text-xs text-charcoal/40 w-6">{i + 1}</span>
+                      {product?.image && (
+                        <img src={product.image} alt="" className="w-8 h-8 object-cover rounded" />
+                      )}
+                      <span className="flex-1 text-sm text-charcoal truncate">{product?.name || pid}</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => moveBestsellerProduct(i, "up")}
+                          disabled={i === 0}
+                          className="p-1 text-charcoal/40 hover:text-charcoal disabled:opacity-20"
+                        >
+                          <ChevronUp className="w-3 h-3" />
+                        </button>
+                        <button
+                          onClick={() => moveBestsellerProduct(i, "down")}
+                          disabled={i === sections.bestsellers.productIds.length - 1}
+                          className="p-1 text-charcoal/40 hover:text-charcoal disabled:opacity-20"
+                        >
+                          <ChevronDown className="w-3 h-3" />
+                        </button>
+                        <button
+                          onClick={() => toggleBestsellerProduct(pid)}
+                          className="p-1 text-charcoal/30 hover:text-red-500"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-xs text-charcoal/40 mb-4">No products selected. Falling back to featured products.</p>
+            )}
+
+            <h3 className="text-sm font-medium text-charcoal mb-3">Available Products</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto border border-black/5 p-3">
+              {allProducts.map((product) => {
+                const selected = sections.bestsellers.productIds.includes(product.id);
+                return (
+                  <label
+                    key={product.id}
+                    className={`flex items-center gap-3 px-3 py-2 rounded cursor-pointer transition-colors ${
+                      selected ? "bg-champagne/10 border border-champagne/20" : "hover:bg-cream border border-transparent"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selected}
+                      onChange={() => toggleBestsellerProduct(product.id)}
+                      className="w-4 h-4 accent-charcoal"
+                    />
+                    <img src={product.image} alt="" className="w-8 h-8 object-cover rounded flex-shrink-0" />
+                    <div className="min-w-0">
+                      <p className="text-sm text-charcoal truncate">{product.name}</p>
+                      <p className="text-xs text-charcoal/40">{product.tierLabel} · ¥{product.price}</p>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>

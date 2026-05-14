@@ -19,11 +19,14 @@ export default function Bestsellers() {
   const [title, setTitle] = useState("DIAMAURA'S BEST SELLING");
   const [products, setProducts] = useState(defaultProducts);
 
+  const [productIds, setProductIds] = useState<string[]>([]);
+
   const loadData = () => {
     const sections = getHomepageSections();
     const isZh = locale === "zh";
     setLabel(isZh ? sections.bestsellers.labelZh : sections.bestsellers.labelEn);
     setTitle(isZh ? sections.bestsellers.titleZh : sections.bestsellers.titleEn);
+    setProductIds(sections.bestsellers.productIds || []);
   };
 
   const loadProducts = () => {
@@ -39,7 +42,9 @@ export default function Bestsellers() {
     });
   }, [locale]);
 
-  const featured = products.filter((p) => p.featured).slice(0, 8);
+  const featured = productIds.length > 0
+    ? productIds.map((id) => products.find((p) => p.id === id)).filter(Boolean) as typeof products
+    : products.filter((p) => p.featured).slice(0, 8);
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;

@@ -399,6 +399,7 @@ export interface HomepageSections {
   bestsellers: {
     labelEn: string; labelZh: string;
     titleEn: string; titleZh: string;
+    productIds: string[];
   };
 }
 
@@ -489,6 +490,7 @@ export const defaultHomepageSections: HomepageSections = {
     labelZh: "热销推荐",
     titleEn: "DIAMAURA'S BEST SELLING",
     titleZh: "DIAMAURA 热销产品",
+    productIds: ["any-jw-001", "any-jw-002", "any-jw-003", "any-jw-004", "any-jw-005", "any-jw-006"],
   },
 };
 
