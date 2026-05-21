@@ -11,18 +11,24 @@ export default function Hero() {
   const [hero, setHero] = useState<{
     title: string; subtitle: string; cta: string; image: string; cta2: string;
   }>({
-    title: t.hero.title,
-    subtitle: t.hero.subtitle,
-    cta: t.hero.cta,
+    title: locale === "en" ? "Jewelry That Tells\nYour Story" : "讲述您的\n珠宝故事",
+    subtitle: locale === "en"
+      ? "Custom engraved necklaces, rings & bracelets. Handcrafted with care, shipped worldwide. Ethically sourced moissanite & lab-grown diamonds."
+      : "定制刻字项链、戒指和手镯。精心手工制作，全球配送。道德采购的莫桑石和培育钻石。",
+    cta: locale === "en" ? "START CUSTOMIZING" : "开始定制",
     image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1600&h=1200&fit=crop",
     cta2: locale === "en" ? "SHOP COLLECTION" : "浏览系列",
   });
 
   const loadHero = () => {
+    const defaultTitle = locale === "en" ? "Jewelry That Tells\nYour Story" : "讲述您的\n珠宝故事";
+    const defaultSubtitle = locale === "en"
+      ? "Custom engraved necklaces, rings & bracelets. Handcrafted with care, shipped worldwide. Ethically sourced moissanite & lab-grown diamonds."
+      : "定制刻字项链、戒指和手镯。精心手工制作，全球配送。道德采购的莫桑石和培育钻石。";
     const content = getPageContent({
-      heroTitle: t.hero.title,
-      heroSubtitle: t.hero.subtitle,
-      heroCta: t.hero.cta,
+      heroTitle: defaultTitle,
+      heroSubtitle: defaultSubtitle,
+      heroCta: locale === "en" ? "START CUSTOMIZING" : "开始定制",
       heroImage: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1600&h=1200&fit=crop",
       heroCta2En: "SHOP COLLECTION",
       heroCta2Zh: "浏览系列",
@@ -30,9 +36,9 @@ export default function Hero() {
       inspirePosts: [],
     });
     setHero({
-      title: content.heroTitle || t.hero.title,
-      subtitle: content.heroSubtitle || t.hero.subtitle,
-      cta: content.heroCta || t.hero.cta,
+      title: content.heroTitle || defaultTitle,
+      subtitle: content.heroSubtitle || defaultSubtitle,
+      cta: content.heroCta || (locale === "en" ? "START CUSTOMIZING" : "开始定制"),
       image: content.heroImage || "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1600&h=1200&fit=crop",
       cta2: locale === "en" ? (content.heroCta2En || "SHOP COLLECTION") : (content.heroCta2Zh || "浏览系列"),
     });
@@ -65,7 +71,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xs tracking-[0.3em] uppercase text-white/70 mb-6"
         >
-          {t.hero.label}
+          {locale === "en" ? "Handcrafted Custom Jewelry" : "手工定制珠宝"}
         </motion.p>
 
         <motion.h1

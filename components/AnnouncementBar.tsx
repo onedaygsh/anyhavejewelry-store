@@ -8,10 +8,10 @@ export default function AnnouncementBar() {
   const [visible, setVisible] = useState(true);
   const [index, setIndex] = useState(0);
   const [announcements, setAnnouncements] = useState<string[]>([
-    "Free 30-Day Returns · Free 90-Day Resize · IGI Certified",
-    "Enjoy 30% Off on Lab-Grown Diamonds · Code: DIAMOND30",
-    "Free Global Shipping on Orders Over ¥3000",
-    "Ethical Moissanite & Lab-Grown Diamonds · Conflict Free",
+    "Free Shipping Over $75 · 60-Day Returns · Handcrafted in Our Studio",
+    "IGI Certified Lab-Grown Diamonds · Conflict Free · Ethically Sourced",
+    "Free Global Shipping · 5-7 Day Craft Time · Secure Checkout",
+    "Custom Engraving Available · Personalize Your Perfect Piece",
   ]);
 
   const loadAnnouncements = () => {

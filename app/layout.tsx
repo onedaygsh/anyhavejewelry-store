@@ -9,27 +9,40 @@ import { WishlistProvider } from "@/components/WishlistProvider";
 import { I18nProvider } from "@/lib/i18n/context";
 import { CurrencyProvider } from "@/lib/currency/context";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
+import TrackingProvider from "@/components/TrackingProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://anyhavejewelry.com"),
-  title: "Anyhave Jewelry | Bespoke Moissanite & Lab-Grown Diamond Jewelry",
+  title: {
+    default: "Anyhave Jewelry | Custom Jewelry That Tells Your Story | Handcrafted Worldwide",
+    template: "%s | Anyhave Jewelry",
+  },
   description:
-    "Handcrafted moissanite and lab-grown diamond jewelry. Design your perfect engagement ring, wedding band, or custom piece. Ethical, sustainable, and beautiful.",
+    "Design your own custom jewelry at Anyhave. Handcrafted personalized necklaces, rings & bracelets with ethical moissanite & lab-grown diamonds. Free shipping over $75. 60-day returns. EU REACH & California Prop 65 compliant.",
   keywords: [
+    "custom jewelry",
+    "personalized jewelry",
     "moissanite ring",
     "lab grown diamond",
+    "custom name necklace",
+    "engraved jewelry",
     "engagement ring",
-    "custom jewelry",
-    "ethical jewelry",
-    "sustainable diamonds",
     "wedding band",
+    "925 sterling silver jewelry",
+    "ethical jewelry",
+    "conflict free diamonds",
     "Anyhave Jewelry",
+    "jewelry gift",
+    "anniversary gift",
+    "birthday jewelry",
   ],
-  authors: [{ name: "Anyhave Jewelry" }],
+  authors: [{ name: "Anyhave Jewelry Master Craftsmen Team", url: "https://anyhavejewelry.com/about/" }],
+  creator: "Anyhave Jewelry",
+  publisher: "Anyhave Jewelry",
   openGraph: {
-    title: "Anyhave Jewelry | Bespoke Moissanite & Lab-Grown Diamond Jewelry",
+    title: "Anyhave Jewelry | Custom Jewelry That Tells Your Story",
     description:
-      "Handcrafted moissanite and lab-grown diamond jewelry. Design your perfect engagement ring, wedding band, or custom piece.",
+      "Design your own custom jewelry at Anyhave. Handcrafted personalized necklaces, rings & bracelets. Free shipping over $75. Ethical moissanite & lab-grown diamonds.",
     url: "https://anyhavejewelry.com",
     siteName: "Anyhave Jewelry",
     locale: "en_US",
@@ -37,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anyhave Jewelry | Bespoke Moissanite & Lab-Grown Diamond Jewelry",
+    title: "Anyhave Jewelry | Custom Jewelry That Tells Your Story",
     description:
-      "Handcrafted moissanite and lab-grown diamond jewelry. Ethical, sustainable, and beautiful.",
+      "Handcrafted personalized necklaces, rings & bracelets. Free shipping over $75. Ethical moissanite & lab-grown diamonds.",
   },
   robots: {
     index: true,
@@ -53,10 +66,15 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    // google: "REPLACE_WITH_REAL_GOOGLE_VERIFICATION_CODE",
   },
   alternates: {
     canonical: "https://anyhavejewelry.com",
+    languages: {
+      "en-US": "https://anyhavejewelry.com/",
+      "zh-CN": "https://anyhavejewelry.com/?lang=zh",
+      "ar-SA": "https://anyhavejewelry.com/?lang=ar",
+    },
   },
 };
 
@@ -72,6 +90,7 @@ export default function RootLayout({
         <WebSiteJsonLd />
       </head>
       <body className="min-h-screen flex flex-col">
+        <TrackingProvider />
         <I18nProvider>
           <CurrencyProvider>
             <CartProvider>

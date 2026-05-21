@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { isAdminLoggedIn, adminLogout } from "@/lib/admin-data";
@@ -18,6 +18,8 @@ import {
   LogOut,
   Wand2,
   BarChart3,
+  BookOpen,
+  Image,
 } from "lucide-react";
 
 const navItems = [
@@ -25,6 +27,8 @@ const navItems = [
   { href: "/admin/products/", label: "Products", icon: Package },
   { href: "/admin/orders/", label: "Orders", icon: ShoppingCart },
   { href: "/admin/blog/", label: "Blog", icon: FileText },
+  { href: "/admin/collections/", label: "Collections", icon: BookOpen },
+  { href: "/admin/catalog/", label: "Catalog", icon: Image },
   { href: "/admin/pages/", label: "Pages", icon: Layers },
   { href: "/admin/comparison/", label: "Comparison", icon: BarChart3 },
   { href: "/admin/settings/", label: "Settings", icon: Settings },
@@ -42,8 +46,10 @@ export default function AdminLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     if (!isAdminLoggedIn()) {
       router.push("/admin/login/");
     }
@@ -55,7 +61,12 @@ export default function AdminLayout({
   };
 
   const isLoginPage = pathname === "/admin/login/" || pathname === "/admin/login";
-  if (!isAdminLoggedIn() && !isLoginPage) return null;
+
+  // Avoid hydration mismatch: always render on SSR, redirect after mount if not logged in
+  if (!mounted && !isLoginPage) {
+    // During SSR and initial client render, show content to avoid hydration mismatch
+    // The useEffect above will handle redirect if needed after mount
+  }
 
   return (
     <div className="min-h-screen bg-cream flex"

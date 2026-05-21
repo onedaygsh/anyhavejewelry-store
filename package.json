@@ -24,6 +24,7 @@
     "next": "14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "ssh2": "^1.17.0",
     "tailwind-merge": "^2.2.0",
     "three": "^0.164.0",
     "tus-js-client": "^4.3.1",

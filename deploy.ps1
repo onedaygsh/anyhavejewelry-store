@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$ApiToken = '4xEhSFRzn1YUF2rdCwhVbxpl7S85oqGbTkgVaukbd59e0434'
+$ApiToken = 'qvF1nUibg50RAm2bfwzlKHRZkz7joaU5wfjq0nZO95b65f82'
 $Domain = 'anyhavejewelry.com'
 $Username = 'u319294541'
 $BaseUrl = 'https://developers.hostinger.com'
@@ -35,17 +35,35 @@ $postHeaders = @{
     'X-Auth-Rest' = $authRest
     'upload-length' = (Get-Item $FilePath).Length.ToString()
 }
-Invoke-RestMethod -Uri $postUrl -Method Post -Headers $postHeaders | Out-Null
-Write-Host "Resource created (201)"
+$response = Invoke-WebRequest -Uri $postUrl -Method Post -Headers $postHeaders
+$location = $response.Headers['Location']
+if (-not $location) { $location = "$uploadBase/$ArchiveName" }
+# If location is relative path, prepend the base URL
+if ($location -notmatch '^https?://') {
+    $baseUri = [System.Uri]$uploadBase
+    $location = (New-Object System.Uri($baseUri, $location)).AbsoluteUri
+}
+Write-Host "Resource created (201), Location: $location"
 
 # PATCH upload file
 Write-Host "Uploading $ArchiveName ($((Get-Item $FilePath).Length) bytes)..."
-$patchUrl = "$uploadBase/$ArchiveName"
+$patchUrl = $location
+
+[System.Net.ServicePointManager]::DefaultConnectionLimit = 10
+
 $webClient = New-Object System.Net.WebClient
 $webClient.Headers.Add('X-Auth', $auth)
 $webClient.Headers.Add('X-Auth-Rest', $authRest)
 $webClient.Headers.Add('upload-offset', '0')
 $webClient.Headers.Add('Content-Type', 'application/offset+octet-stream')
+
+# Set timeout via reflection
+$property = $webClient.GetType().GetProperty('Timeout', [System.Reflection.BindingFlags]::Instance -bor [System.Reflection.BindingFlags]::NonPublic)
+if ($property) {
+    $property.SetValue($webClient, 600000)
+    Write-Host "Timeout set to 10 minutes"
+}
+
 $webClient.UploadFile($patchUrl, 'PATCH', $FilePath)
 Write-Host "Upload successful!"
 

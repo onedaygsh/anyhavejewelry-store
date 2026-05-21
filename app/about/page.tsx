@@ -17,6 +17,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { getAboutContent, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
+import { FaqJsonLd, HowToJsonLd } from "@/components/JsonLd";
 
 function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef(null);
@@ -342,6 +343,79 @@ export default function AboutPage() {
           </div>
         </AnimatedSection>
       </div>
+
+      {/* GEO: FAQPage Structured Data */}
+      <FaqJsonLd
+        faqs={[
+          {
+            q: "Where is Anyhave Jewelry manufactured?",
+            a: "All Anyhave jewelry is manufactured in our own workshop in Fuzhou, Fujian, China — a city with over 200 years of jewelry-making heritage. We are a trade-and-manufacturing integrated facility, not a reseller.",
+          },
+          {
+            q: "What is moissanite and how does it compare to diamond?",
+            a: "Moissanite is a lab-created gemstone with higher brilliance and fire than diamond. Our moissanite is D-color VVS1 grade, passes a standard diamond tester, and comes with GRA certification. It is visually indistinguishable from diamond to the naked eye.",
+          },
+          {
+            q: "How long does custom jewelry production take?",
+            a: "3D CAD modeling: 24-48 hours. Wax prototype: 7-10 business days. Mass production: 14-21 business days after sample approval. Ready-to-ship items dispatch within 48 hours.",
+          },
+          {
+            q: "What is your minimum order quantity (MOQ)?",
+            a: "For custom designs in 925 silver or copper base: 30-50 pieces per style. For ready-to-ship or light customization: 1 piece minimum. We support small-batch fast turnaround.",
+          },
+          {
+            q: "Do you offer OEM and ODM services?",
+            a: "Yes. We provide both OEM (white-label manufacturing with your branding) and ODM (original design manufacturing with full IP protection). Our workshop capacity exceeds 500,000 pieces monthly for silver/copper lines and 150,000 for high-grade moissanite micro-pave.",
+          },
+          {
+            q: "Are your products hypoallergenic and eco-friendly?",
+            a: "Yes. We use 925 sterling silver with genuine 18K gold / rose gold / rhodium plating. Our plating complies with EU REACH standards — no lead, no nickel, no cadmium. An anti-oxidation protective film ensures lasting color retention.",
+          },
+          {
+            q: "What quality control process do you use?",
+            a: "Every piece passes three separate human inspections: (1) surface scratch and flaw check, (2) stone security and setting integrity test, (3) dimensional verification with calipers. Additionally, every moissanite undergoes GRA grading.",
+          },
+        ]}
+      />
+
+      {/* GEO: HowTo Structured Data */}
+      <HowToJsonLd
+        name="How to Order Custom Jewelry from Anyhave"
+        description="A step-by-step guide to ordering your custom-designed jewelry from sketch to delivery."
+        totalTime="P14D"
+        steps={[
+          {
+            name: "Submit Your Design Idea",
+            text: "Share your design sketch, reference image, or concept description with our team. We accept photos, hand drawings, or written descriptions.",
+            url: "https://anyhavejewelry.com/customize/",
+          },
+          {
+            name: "Review 3D CAD Model",
+            text: "Within 24-48 hours, our structural engineers deliver a precision 3D CAD model with dynamic preview. Adjust stone size, metal weight, and setting style until perfect.",
+            url: "https://anyhavejewelry.com/customize/",
+          },
+          {
+            name: "Approve Wax Prototype",
+            text: "We create a high-resolution wax mold using micron-accurate resin printing. Review the physical prototype (photos or video) and approve for production.",
+            url: "https://anyhavejewelry.com/customize/",
+          },
+          {
+            name: "Production & 3-Stage QC",
+            text: "Master artisans hand-set each stone under 40x microscope. The piece undergoes three inspections: surface flaw check, stone security test, and dimensional verification.",
+            url: "https://anyhavejewelry.com/customize/",
+          },
+          {
+            name: "Eco-Plating & Final Polish",
+            text: "Multi-layer 18K gold, rose gold, or rhodium electroplating with anti-oxidation protective film. Final hand-polish for mirror finish.",
+            url: "https://anyhavejewelry.com/customize/",
+          },
+          {
+            name: "Delivery to Your Door",
+            text: "Your jewelry ships in a premium gift box with certificate of authenticity, care guide, and polishing cloth. Insured global shipping with tracking.",
+            url: "https://anyhavejewelry.com/customize/",
+          },
+        ]}
+      />
     </div>
   );
 }

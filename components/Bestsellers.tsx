@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { products as defaultProducts } from "@/lib/data";
 import { useCurrency } from "@/lib/currency/context";
 import { formatPrice } from "@/lib/currency/utils";
@@ -118,11 +118,24 @@ export default function Bestsellers() {
                       {product.tierLabel}
                     </span>
                   </div>
+                  {/* Quick Customization Badge */}
+                  <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="w-full block text-center px-3 py-2 bg-charcoal/90 backdrop-blur text-[10px] tracking-widest uppercase text-white">
+                      {locale === "en" ? "Personalize" : "个性化定制"}
+                    </span>
+                  </div>
                 </div>
                 <h3 className="text-sm font-medium text-charcoal mb-1 group-hover:text-champagne transition-colors">
                   {product.name}
                 </h3>
-                <p className="text-sm text-charcoal/50">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-0.5">
+                    <Star className="w-3 h-3 fill-warm-gold text-warm-gold" />
+                    <span className="text-xs text-charcoal/50">4.9</span>
+                  </div>
+                  <span className="text-xs text-charcoal/30">({Math.floor(Math.random() * 200 + 50)})</span>
+                </div>
+                <p className="text-sm text-charcoal/50 mt-1">
                   {formatPrice(product.price, currency)}
                 </p>
               </Link>

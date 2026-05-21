@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "products",
     "customize",
     "design-your-own",
+    "collections",
+    "catalog",
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
@@ -19,7 +21,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: route === "" ? "daily" : "weekly",
     priority: route === "" ? 1.0 : 0.8,
+    alternates: {
+      languages: {
+        "en-US": `${baseUrl}/${route}`,
+        "zh-CN": `${baseUrl}/${route}?lang=zh`,
+        "ar-SA": `${baseUrl}/${route}?lang=ar`,
+      },
+    },
   }));
+
+  const collectionEntries: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/collections/engagement/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+    { url: `${baseUrl}/collections/moissanite/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+    { url: `${baseUrl}/collections/lab-grown/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+  ];
 
   const productEntries: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${baseUrl}/product/${product.slug}/`,
@@ -28,12 +43,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const blogEntries: MetadataRoute.Sitemap = products.map((product) => ({
-    url: `${baseUrl}/blog/${product.slug}/`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
-
-  return [...staticEntries, ...productEntries, ...blogEntries];
+  return [...staticEntries, ...collectionEntries, ...productEntries];
 }

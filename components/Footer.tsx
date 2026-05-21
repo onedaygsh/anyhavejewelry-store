@@ -18,6 +18,7 @@ export default function Footer() {
         : settings.footer.rightsZh || t.footer.rights
     );
   };
+  const isEn = locale === "en";
 
   useEffect(() => {
     loadRights();
@@ -77,7 +78,7 @@ export default function Footer() {
                 className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 text-white placeholder:text-white/30 text-sm focus:outline-none focus:border-champagne/50 transition-colors"
               />
               <button className="px-4 py-2.5 bg-champagne text-white text-sm hover:bg-champagne-light transition-colors">
-                →
+                {isEn ? "JOIN" : "加入"}
               </button>
             </div>
             <div className="flex items-center gap-4">

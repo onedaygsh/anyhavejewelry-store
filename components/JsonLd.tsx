@@ -29,7 +29,7 @@ export function OrganizationJsonLd() {
           height: 630,
         },
         description:
-          "Handcrafted moissanite and lab-grown diamond jewelry. Design your perfect engagement ring, wedding band, or custom piece. Ethical, sustainable, and beautiful.",
+          "Anyhave Jewelry is a premium moissanite and custom jewelry manufacturer based in Fuzhou, China, with over 10 years of craftsmanship expertise. We specialize in D-color VVS1 moissanite, 925 sterling silver, and Chinese intangible cultural heritage lacquer jewelry. Our workshop produces 500,000+ pieces monthly, offering OEM/ODM services with 3D CAD modeling in 24-48 hours, prototyping in 7-10 days, and mass production in 14-21 days. Every piece undergoes three-stage human quality inspection and EU REACH-compliant eco-plating.",
         sameAs: [
           "https://instagram.com/anyhavejewelry",
           "https://pinterest.com/anyhavejewelry",
@@ -38,17 +38,81 @@ export function OrganizationJsonLd() {
           "@type": "ContactPoint",
           telephone: "+86-400-888-8888",
           contactType: "Customer Service",
-          availableLanguage: ["English", "Chinese"],
-          areaServed: "Worldwide",
+          availableLanguage: ["English", "Chinese", "Arabic"],
+          areaServed: ["US", "CA", "GB", "DE", "FR", "AU", "AE", "SA", "QA", "KW"],
         },
-        foundingDate: "2020",
+        foundingDate: "2015",
+        founder: {
+          "@type": "Person",
+          name: "Anyhave Master Craftsmen Collective",
+          jobTitle: "Founding Artisan Team",
+          knowsAbout: ["Jewelry Making", "Moissanite Setting", "Lacquer Craft", "Supply Chain Management"],
+        },
         knowsAbout: [
-          "Moissanite Jewelry",
-          "Lab-Grown Diamonds",
-          "Engagement Rings",
+          "D-Color VVS1 Moissanite",
+          "925 Sterling Silver Jewelry",
+          "Chinese Intangible Cultural Heritage Lacquer Jewelry",
+          "Micro-Pave Setting",
+          "3D CAD Jewelry Modeling",
           "Custom Jewelry Design",
-          "Ethical Jewelry",
+          "OEM Jewelry Manufacturing",
+          "ODM Jewelry Production",
+          "Eco-Plating Technology",
+          "EU REACH Compliance",
+          "Amoeba Management",
         ],
+        hasCredential: [
+          {
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: "Certification",
+            name: "GRA Moissanite Certification",
+            recognizedBy: {
+              "@type": "Organization",
+              name: "Global Gemological Research Association",
+            },
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: "Compliance",
+            name: "EU REACH Regulation Compliance",
+            recognizedBy: {
+              "@type": "Organization",
+              name: "European Chemicals Agency",
+            },
+          },
+        ],
+        makesOffer: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Custom Jewelry Design",
+              description: "3D CAD modeling with dynamic preview, 24-48 hour turnaround",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "OEM Jewelry Manufacturing",
+              description: "White-label production with MOQ 30-50 pieces per style",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "ODM Jewelry Production",
+              description: "Original design manufacturing with full IP protection",
+            },
+          },
+        ],
+        employee: {
+          "@type": "EmployeeRole",
+          roleName: "Master Artisan",
+          namedPosition: "Senior Jewelry Craftsman",
+          numberedPosition: "35+",
+        },
       },
       {
         "@type": "LocalBusiness",
@@ -60,17 +124,18 @@ export function OrganizationJsonLd() {
         priceRange: "$$$",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "123 Jewelry District",
-          addressLocality: "Shenzhen",
-          addressRegion: "Guangdong",
-          postalCode: "518000",
+          streetAddress: "Cangshan Jewelry Industry Zone",
+          addressLocality: "Fuzhou",
+          addressRegion: "Fujian",
+          postalCode: "350000",
           addressCountry: "CN",
         },
         geo: {
           "@type": "GeoCoordinates",
-          latitude: "22.5431",
-          longitude: "114.0579",
+          latitude: "26.0745",
+          longitude: "119.2965",
         },
+        hasMap: "https://www.google.com/maps/search/Fuzhou+Jewelry+Industry+Zone+Fujian+China",
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
@@ -87,20 +152,24 @@ export function OrganizationJsonLd() {
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Jewelry Collection",
+          name: "Jewelry Collection & Services",
           itemListElement: [
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Product",
-                name: "Moissanite Engagement Rings",
+                name: "D-Color VVS1 Moissanite Engagement Rings",
+                description: "Premium moissanite rings with GRA certification, available in 0.5ct to 5ct",
+                material: "925 Sterling Silver with 18K Gold Plating",
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Product",
-                name: "Lab-Grown Diamond Rings",
+                name: "Chinese ICH Lacquer Jewelry",
+                description: "Intangible Cultural Heritage lacquer jewelry, handcrafted with traditional techniques",
+                material: "Natural Lacquer with Gold/Silver Inlay",
               },
             },
             {
@@ -108,6 +177,24 @@ export function OrganizationJsonLd() {
               itemOffered: {
                 "@type": "Product",
                 name: "Custom Wedding Bands",
+                description: "Personalized wedding bands with complimentary engraving",
+                material: "925 Sterling Silver / 18K Gold / Rose Gold / Rhodium",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "3D CAD Jewelry Modeling",
+                description: "Precision 3D modeling with dynamic preview, 24-48 hour delivery",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "OEM/ODM Jewelry Manufacturing",
+                description: "White-label and original design manufacturing, MOQ 30-50 pieces per style",
               },
             },
           ],
@@ -228,9 +315,9 @@ export function ProductJsonLd({ product }: { product: Product }) {
     offers: {
       "@type": "AggregateOffer",
       url: `https://anyhavejewelry.com/product/${product.slug}/`,
-      priceCurrency: "CNY",
-      lowPrice: product.price,
-      highPrice: product.price + 1500,
+      priceCurrency: "USD",
+      lowPrice: Math.round(product.price / 7.2),
+      highPrice: Math.round((product.price + 1500) / 7.2),
       offerCount: product.metalOptions?.length || 1,
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
@@ -240,24 +327,30 @@ export function ProductJsonLd({ product }: { product: Product }) {
         shippingRate: {
           "@type": "MonetaryAmount",
           value: "0",
-          currency: "CNY",
+          currency: "USD",
         },
-        shippingDestination: {
-          "@type": "DefinedRegion",
-          addressCountry: "CN",
-        },
+        shippingDestination: [
+          { "@type": "DefinedRegion", addressCountry: "US" },
+          { "@type": "DefinedRegion", addressCountry: "CA" },
+          { "@type": "DefinedRegion", addressCountry: "GB" },
+          { "@type": "DefinedRegion", addressCountry: "DE" },
+          { "@type": "DefinedRegion", addressCountry: "FR" },
+          { "@type": "DefinedRegion", addressCountry: "AU" },
+          { "@type": "DefinedRegion", addressCountry: "AE" },
+          { "@type": "DefinedRegion", addressCountry: "SA" },
+        ],
         deliveryTime: {
           "@type": "ShippingDeliveryTime",
           handlingTime: {
             "@type": "QuantitativeValue",
-            minValue: 1,
-            maxValue: 3,
+            minValue: 14,
+            maxValue: 21,
             unitCode: "DAY",
           },
           transitTime: {
             "@type": "QuantitativeValue",
-            minValue: 3,
-            maxValue: 7,
+            minValue: 5,
+            maxValue: 8,
             unitCode: "DAY",
           },
         },

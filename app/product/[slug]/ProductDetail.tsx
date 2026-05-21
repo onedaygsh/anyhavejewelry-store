@@ -20,10 +20,13 @@ import {
   Gem,
   Ruler,
   Award,
-  Heart,
   Sparkles,
+  Clock,
 } from "lucide-react";
 import WishlistButton from "@/components/WishlistButton";
+import GiftOptions from "@/components/GiftOptions";
+import ShippingEstimator from "@/components/ShippingEstimator";
+import ComplianceBadge from "@/components/ComplianceBadge";
 import { getReviewsByProductId, getAverageRating } from "@/lib/reviews";
 
 export default function ProductDetail({ product: initialProduct }: { product: Product }) {
@@ -34,6 +37,12 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   const [product, setProduct] = useState(initialProduct);
   const [allProducts, setAllProducts] = useState(defaultProducts);
   const [activeImage, setActiveImage] = useState(0);
+  const [giftOptions, setGiftOptions] = useState({
+    giftWrap: false,
+    giftMessage: false,
+    giftReceipt: false,
+    message: "",
+  });
 
   const loadProducts = () => {
     const loaded = getAdminProducts(defaultProducts);
@@ -274,8 +283,18 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               </div>
             )}
 
+            {/* Estimated Ship Date */}
+            <div className="flex items-center gap-2 mb-5 p-3 bg-cream border border-black/5">
+              <Clock className="w-4 h-4 text-champagne flex-shrink-0" />
+              <p className="text-sm text-charcoal/70">
+                {locale === "en"
+                  ? "Ships within 5-7 business days from our studio"
+                  : "5-7 个工作日内从我们的工作室发货"}
+              </p>
+            </div>
+
             {/* Actions */}
-            <div className="flex flex-col gap-3 mb-8">
+            <div className="flex flex-col gap-3 mb-6">
               <button
                 onClick={() => addItem(product, 1, metal || undefined)}
                 className="w-full px-8 py-4 bg-charcoal text-white text-sm tracking-widest font-medium hover:bg-graphite transition-colors flex items-center justify-center gap-2"
@@ -298,8 +317,14 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               </div>
             </div>
 
+            {/* Gift Options */}
+            <GiftOptions onToggle={setGiftOptions} />
+
+            {/* Shipping Estimator */}
+            <ShippingEstimator freeShippingThreshold={75} />
+
             {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="grid grid-cols-3 gap-4 text-center py-5 border-t border-black/5">
               <div className="flex flex-col items-center gap-2">
                 <Shield className="w-5 h-5 text-charcoal/40" />
                 <span className="text-[10px] tracking-wider text-charcoal/50 uppercase">
@@ -319,6 +344,9 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 </span>
               </div>
             </div>
+
+            {/* Compliance */}
+            <ComplianceBadge />
           </motion.div>
         </div>
 

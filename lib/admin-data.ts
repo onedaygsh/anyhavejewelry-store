@@ -552,50 +552,50 @@ export interface AboutContent {
 }
 
 export const defaultAboutContent: AboutContent = {
-  storyDescEn: "Anyhave was born from a simple belief: that everyone deserves beautiful, ethical jewelry. Based on years of craftsmanship expertise, we create pieces that honor both love and values.",
-  storyDescZh: "Anyhave诞生于一个简单的信念：每个人都值得拥有美丽、符合道德的珠宝。基于多年的工艺专长，我们创造出既尊重爱情又尊重价值观的作品。",
-  howItStartedP1En: "Anyhave began with a question: Why must fine jewelry come with ethical compromises? We set out to create stunning pieces using only moissanite and lab-grown diamonds — gems that sparkle with integrity.",
-  howItStartedP1Zh: "Anyhave始于一个问题：为什么精美珠宝必须伴随着道德妥协？我们着手仅使用莫桑石和培育钻石打造令人惊叹的作品——以诚信闪耀的宝石。",
-  howItStartedP2En: "Today, we work with master craftsmen who bring decades of jewelry-making expertise to every piece. Our network spans certified gemologists, ethical suppliers, and artisans dedicated to perfection.",
-  howItStartedP2Zh: "今天，我们与大师级工匠合作，他们为每件作品带来了数十年的珠宝制作专长。我们的网络遍布认证的宝石学家、道德供应商和致力于完美的工匠。",
-  howItStartedP3En: "Our mission remains unchanged: to create jewelry that tells your story while respecting the planet. Every ring, necklace, and earring is a testament to what is possible when beauty meets conscience.",
-  howItStartedP3Zh: "我们的使命始终未变：创造讲述您故事的同时尊重地球的珠宝。每一枚戒指、项链和耳环都是美丽与良知相遇时可能性的证明。",
+  storyDescEn: "Anyhave was born in the jewelry district of Fuzhou, China — a city with over 200 years of jewelry-making heritage. We are not a retailer. We are a workshop that opened its doors to the world. By combining traditional hand-setting techniques with modern 3D visualization and digital supply chain management, we bridge the gap between bespoke craftsmanship and everyday wearability.",
+  storyDescZh: "Anyhave诞生于中国福州珠宝产业带——一座拥有200多年珠宝制作历史的城市。我们不是零售商，而是向世界敞开大门的工坊。通过将传统手工镶嵌技艺与现代3D可视化及数字化供应链管理相结合，我们架起了定制工艺与日常佩戴之间的桥梁。",
+  howItStartedP1En: "We started with a workshop, not a brand. For over a decade, our team of craftsmen perfected one thing: making exceptional jewelry accessible. No distributors. No wholesale markups. No retail middlemen. Just the actual cost of materials and artisan labor, plus a margin that sustains our team.",
+  howItStartedP1Zh: "我们从一个工坊起步，而非一个品牌。十多年来，我们的工匠团队只专注于一件事：让卓越的珠宝触手可及。没有分销商，没有批发加价，没有零售中间商。只有材料和工匠劳动的实际成本，加上维持团队的合理利润。",
+  howItStartedP2En: "Our workshop runs on amoeba management — every production cell operates as an independent profit center. Material waste and labor costs are tracked per piece. This transparency is what allows us to offer customization at prices mass-produced brands cannot match. Monthly output reaches 500,000 pieces for silver/copper lines and 150,000 for high-grade moissanite micro-pave.",
+  howItStartedP2Zh: "我们的工坊采用阿米巴经营管理——每个生产单元都作为独立的利润中心运作。材料损耗和人工成本按件追踪。正是这种透明度使我们能够以大规模生产品牌无法匹敌的价格提供定制服务。银饰/铜饰月产能达50万件，高定级莫桑石微镶月产能达15万件。",
+  howItStartedP3En: "Today, our mission is unchanged: to create jewelry that tells your story while honoring the hands that made it. Every piece passes three separate human inspections — surface flaw check, stone security test, and dimensional verification — before it ever reaches you.",
+  howItStartedP3Zh: "今天，我们的使命始终未变：创造讲述您故事的珠宝，同时尊重制作它的双手。每件作品在送达您手中之前，都必须通过三道独立的人工质检——表面瑕疵检查、宝石牢固度测试和尺寸核准。",
   stats: [
     { num: "10+", labelEn: "Years of Craft", labelZh: "工艺年限" },
-    { num: "$25M", labelEn: "Happy Couples", labelZh: "幸福情侣" },
+    { num: "500K+", labelEn: "Monthly Output", labelZh: "月产量" },
     { num: "35+", labelEn: "Master Artisans", labelZh: "大师工匠" },
-    { num: "OEM/ODM", labelEn: "Custom Designs", labelZh: "定制设计" },
+    { num: "3-Stage", labelEn: "QC Inspection", labelZh: "质检流程" },
   ],
   collections: [
-    { titleEn: "Engagement Rings", titleZh: "订婚戒指", subtitleEn: "Symbols of Forever", subtitleZh: "永恒的象征", descEn: "From classic solitaires to vintage halos, each engagement ring is crafted to capture the uniqueness of your love story.", descZh: "从经典独钻到复古光环，每枚订婚戒指都旨在捕捉您独特爱情故事的光芒。", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&h=600&fit=crop" },
-    { titleEn: "Wedding Bands", titleZh: "结婚对戒", subtitleEn: "Eternal Commitment", subtitleZh: "永恒的承诺", descEn: "Simple, elegant bands in platinum and gold. Available in various widths and finishes to match your personal style.", descZh: "铂金和黄金的简约优雅对戒。提供多种宽度和饰面，以匹配您的个人风格。", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&h=600&fit=crop" },
+    { titleEn: "Engagement Rings", titleZh: "订婚戒指", subtitleEn: "Symbols of Forever", subtitleZh: "永恒的象征", descEn: "From classic solitaires to vintage halos, each engagement ring is crafted to capture the uniqueness of your love story. D-color VVS1 moissanite with GRA certification.", descZh: "从经典独钻到复古光环，每枚订婚戒指都旨在捕捉您独特爱情故事的光芒。D色VVS1莫桑石，附GRA证书。", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&h=600&fit=crop" },
+    { titleEn: "Wedding Bands", titleZh: "结婚对戒", subtitleEn: "Eternal Commitment", subtitleZh: "永恒的承诺", descEn: "Simple, elegant bands in 925 sterling silver with genuine 18K gold plating. Available in various widths and finishes to match your personal style.", descZh: "925纯银搭配真金18K电镀的简约优雅对戒。提供多种宽度和饰面，以匹配您的个人风格。", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&h=600&fit=crop" },
     { titleEn: "Necklaces & Pendants", titleZh: "项链与吊坠", subtitleEn: "Timeless Elegance", subtitleZh: "永恒优雅", descEn: "Delicate solitaires, bold statement pieces, and everything in between. Each pendant designed to catch the light and admiration.", descZh: "精致的独钻到大胆的宣言作品。每款吊坠都旨在捕捉光芒和赞赏。", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&h=600&fit=crop" },
   ],
   processSteps: [
-    { titleEn: "Design", titleZh: "设计", descEn: "Each piece begins with your vision. Our designers translate your ideas into detailed sketches and 3D renderings.", descZh: "每件作品始于您的愿景。我们的设计师将您的想法转化为详细的草图和3D渲染图。" },
-    { titleEn: "Stone Selection", titleZh: "宝石选择", descEn: "We hand-select every moissanite and lab-grown diamond for optimal cut, clarity, and brilliance.", descZh: "我们亲手挑选每一颗莫桑石和培育钻石，以确保最佳切工、净度和亮度。" },
-    { titleEn: "Setting", titleZh: "镶嵌", descEn: "Master setters secure each stone with precision, ensuring durability while maximizing light exposure.", descZh: "大师级镶嵌师精准固定每颗宝石，确保耐用性同时最大化光线 exposure。" },
-    { titleEn: "Inspection", titleZh: "质检", descEn: "A rigorous quality check examines every detail — stone security, metal finish, and overall beauty.", descZh: "严格的质量检查审视每一个细节——宝石安全性、金属饰面和整体美感。" },
+    { titleEn: "3D CAD Modeling (24-48h)", titleZh: "3D建模（24-48小时）", descEn: "Receive your design sketch or concept. Our structural engineers build a precision 3D CAD model and provide a dynamic preview. Adjust stone size, metal weight, or setting style until it is exactly right.", descZh: "接收您的设计草图或概念。我们的结构工程师构建精密3D CAD模型并提供动态预览。调整宝石尺寸、金属重量或镶嵌样式，直到完全满意。" },
+    { titleEn: "Wax Printing & Casting", titleZh: "蜡模打印与铸造", descEn: "High-resolution resin printers create wax molds with micron-level accuracy. Strict alloy melting point control and lost-wax casting eliminate sand holes and oxidation in 925 silver and premium copper.", descZh: "高分辨率树脂打印机以微米级精度创建蜡模。严格的合金熔点控制和失蜡铸造工艺杜绝925银和高品质铜材的沙眼与氧化问题。" },
+    { titleEn: "Hand-Polishing & Micro-Setting", titleZh: "手工抛光与微镶", descEn: "Artisans with 10+ years of experience hand-finish every piece under a 40x microscope. Micro-pave setting ensures moissanite stability and maximizes refractive brilliance.", descZh: "拥有10年以上经验的匠人在40倍显微镜下手工精修每件作品。微镶工艺确保莫桑石的稳固性并最大化折射光泽。" },
+    { titleEn: "Eco-Plating & 3-Stage QC", titleZh: "环保电镀与三道质检", descEn: "Multi-layer 18K gold / rose gold / rhodium electroplating with anti-oxidation protective film. Every piece passes three inspections: surface scratch check, stone security test, and caliper dimensional verification.", descZh: "多层18K金/玫瑰金/铑电镀，配合抗氧化保护膜。每件作品通过三道检验：表面划痕检查、宝石牢固度测试、卡尺尺寸核准。" },
     { titleEn: "Packaging", titleZh: "包装", descEn: "Your jewelry arrives in a premium gift box with certificate of authenticity, care guide, and polishing cloth.", descZh: "您的珠宝以高级礼盒送达，内含真伪证书、保养指南和抛光布。" },
-    { titleEn: "Delivery", titleZh: "配送", descEn: "Insured global shipping with tracking. Each package is discreetly labeled for security and surprise.", descZh: "带追踪的投保全球配送。每个包裹都 discreetly 标记以确保安全和惊喜。" },
+    { titleEn: "Global Delivery", titleZh: "全球配送", descEn: "Insured global shipping with tracking. Integrated international ERP provides end-to-end visibility from Fuzhou to North America, Europe, and the Middle East.", descZh: "带追踪的投保全球配送。集成的国际ERP系统提供从福州到北美、欧洲和中东的端到端可视化物流追踪。" },
   ],
-  sustainabilityP1En: "We believe beautiful jewelry should not come at the cost of the planet or human rights. That is why we use only lab-created stones and recycled precious metals.",
-  sustainabilityP1Zh: "我们相信美丽的珠宝不应以地球或人权为代价。这就是为什么我们只使用实验室培育的宝石和回收的贵金属。",
-  sustainabilityP2En: "Our moissanite and lab-grown diamonds eliminate the need for mining, reducing environmental impact while offering identical beauty. Our metals are sourced from certified recycled suppliers.",
-  sustainabilityP2Zh: "我们的莫桑石和培育钻石消除了采矿需求，在提供同等美丽的同时减少环境影响。我们的金属来自认证的回收供应商。",
-  sustainabilityP3En: "Every shipment uses minimal, recyclable packaging. Our goal is simple: stunning jewelry, minimal footprint.",
-  sustainabilityP3Zh: "每次发货使用最少、可回收的包装。我们的目标很简单：惊艳的珠宝，最小的足迹。",
+  sustainabilityP1En: "We believe beautiful jewelry should not come at the cost of the planet or human rights. Our eco-plating process complies with EU REACH standards — no lead, no nickel, no cadmium. The anti-oxidation protective film ensures lasting color retention.",
+  sustainabilityP1Zh: "我们相信美丽的珠宝不应以地球或人权为代价。我们的环保电镀工艺符合欧盟REACH标准——无铅、无镍、无镉。抗氧化保护膜确保持久保色。",
+  sustainabilityP2En: "Our moissanite and lab-grown diamonds eliminate the need for mining, reducing environmental impact while offering identical beauty. We use only D-color VVS1 stones cut with Belgian precision techniques — each passes a standard diamond tester and supports GRA certificate issuance.",
+  sustainabilityP2Zh: "我们的莫桑石和培育钻石消除了采矿需求，在提供同等美丽的同时减少环境影响。我们只使用D色VVS1级宝石，采用比利时精密切割工艺——每颗都能通过标准测钻笔检测，并支持出具GRA证书。",
+  sustainabilityP3En: "Every shipment uses minimal, recyclable packaging. Our amoeba profit accounting model tracks material waste per piece, driving continuous reduction. Our goal is simple: stunning jewelry, minimal footprint.",
+  sustainabilityP3Zh: "每次发货使用最少、可回收的包装。我们的阿米巴利润核算模型按件追踪材料损耗，推动持续降低。我们的目标很简单：惊艳的珠宝，最小的足迹。",
   sustainabilityImage: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&h=600&fit=crop",
   values: [
-    { titleEn: "Precision Craftsmanship", titleZh: "精密工艺", descEn: "Every setting, every polish, every detail is executed with the utmost care. We believe perfection lives in the details.", descZh: "每一个镶嵌、每一次抛光、每一个细节都以 utmost care 执行。我们相信完美存在于细节之中。" },
-    { titleEn: "Transparent Pricing", titleZh: "透明定价", descEn: "We strip away traditional retail markup. Direct relationships with craftsmen mean you pay for quality, not middlemen.", descZh: "我们剔除传统零售加价。与工匠的直接关系意味着您为品质付费，而非中间商。" },
-    { titleEn: "Generations of Expertise", titleZh: "世代传承的专长", descEn: "Our master craftsmen combine time-honored jewelry-making techniques with modern technology for unparalleled results.", descZh: "我们的大师工匠将悠久的珠宝制作传统与现代技术相结合，成就无与伦比的作品。" },
-    { titleEn: "Conscious Production", titleZh: "有意识的生产", descEn: "We use only conflict-free stones, recycled metals, and ethical production practices to minimize our impact.", descZh: "我们仅使用无冲突宝石、回收金属和道德生产实践，以最大限度减少我们的影响。" },
+    { titleEn: "Precision Craftsmanship", titleZh: "精密工艺", descEn: "Every setting, every polish, every detail is executed with the utmost care. Under a 40x microscope, our artisans ensure tighter prongs, straighter rows, and more fire.", descZh: "每一个镶嵌、每一次抛光、每一个细节都以 utmost care 执行。在40倍显微镜下，我们的匠人确保更紧的镶爪、更直的排列和更璀璨的火彩。" },
+    { titleEn: "Transparent Pricing", titleZh: "透明定价", descEn: "We own the workshop. No distributors, no wholesale markups, no retail middlemen. Amoeba profit accounting tracks every cost per piece. You pay for the piece, not the shelf it sits on.", descZh: "我们拥有工坊。没有分销商，没有批发加价，没有零售中间商。阿米巴利润核算按件追踪每一项成本。您为作品付费，而非它摆放的货架。" },
+    { titleEn: "Digital Supply Chain", titleZh: "数字化供应链", descEn: "Full-stack digitalization from 3D asset library to production scheduling to quality control. Real-time order tracking from Fuzhou to your door.", descZh: "从3D资产库到生产排期再到质量控制的全栈数字化。从福州到您家门口的实时订单追踪。" },
+    { titleEn: "Conscious Production", titleZh: "有意识的生产", descEn: "EU REACH compliant plating. Conflict-free stones. Recycled metals. Three-stage human inspection. Because trust is earned, not claimed.", descZh: "符合欧盟REACH标准的电镀。无冲突宝石。回收金属。三道人工质检。因为信任是赢得的，而非宣称的。" },
   ],
   ctaTitleEn: "Your Story Deserves a Beautiful Symbol",
   ctaTitleZh: "您的故事值得一个美丽的象征",
-  ctaDescEn: "Whether you are proposing, celebrating an anniversary, or treating yourself — we are here to craft something extraordinary.",
-  ctaDescZh: "无论您是求婚、庆祝周年纪念，还是犒劳自己——我们都能为您打造非凡之作。",
+  ctaDescEn: "Whether you are proposing, celebrating an anniversary, or treating yourself — we are here to craft something extraordinary. From sketch to shipment in as little as 14 days.",
+  ctaDescZh: "无论您是求婚、庆祝周年纪念，还是犒劳自己——我们都能为您打造非凡之作。从草图到发货，最快仅需14天。",
   ctaDesignEn: "START YOUR DESIGN",
   ctaDesignZh: "开始您的设计",
   ctaExploreEn: "EXPLORE COLLECTION",
@@ -882,4 +882,175 @@ export function saveComparisonData(data: ComparisonData) {
   if (typeof window === "undefined") return;
   localStorage.setItem(COMPARISON_KEY, JSON.stringify(data));
   broadcastSync(COMPARISON_KEY);
+}
+
+// ==================== Collections Content ====================
+const COLLECTIONS_KEY = ADMIN_KEYS.pageContent + "::collections";
+
+export interface AdminCollection {
+  slug: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  productCount: number;
+  tag: string;
+  productSlugs: string[];
+}
+
+export const defaultAdminCollections: AdminCollection[] = [
+  {
+    slug: "engagement",
+    title: "Say Yes Forever",
+    subtitle: "Engagement Collection",
+    description: "D-color VVS1 moissanite solitaires and lab-grown diamond rings. Ethically crafted, eternally brilliant.",
+    image: "/images/jewelry/ring-120.png",
+    productCount: 9,
+    tag: "Bestseller",
+    productSlugs: [
+      "round-brilliant-moissanite-ring",
+      "oval-lab-grown-diamond-ring",
+      "pear-cut-moissanite-ring",
+      "pear-lab-grown-diamond-ring",
+      "emerald-cut-moissanite-ring",
+      "cushion-cut-lab-diamond-ring",
+      "princess-cut-moissanite-ring",
+      "oval-lab-diamond-statement-ring",
+      "cushion-moissanite-engagement-ring",
+    ],
+  },
+  {
+    slug: "moissanite",
+    title: "Moissanite Collection",
+    subtitle: "Fire & Brilliance",
+    description: "Exceptional moissanite rings in round, pear, emerald, princess, and cushion cuts. Unmatched sparkle at extraordinary value.",
+    image: "/images/jewelry/ring-100.png",
+    productCount: 5,
+    tag: "Popular",
+    productSlugs: [
+      "round-brilliant-moissanite-ring",
+      "pear-cut-moissanite-ring",
+      "emerald-cut-moissanite-ring",
+      "princess-cut-moissanite-ring",
+      "cushion-moissanite-engagement-ring",
+    ],
+  },
+  {
+    slug: "lab-grown",
+    title: "Lab-Grown Diamonds",
+    subtitle: "Ethical Luxury",
+    description: "IGI-certified lab-grown diamonds identical to mined diamonds. Oval, pear, and cushion cuts in gold and platinum.",
+    image: "/images/jewelry/ring-150.png",
+    productCount: 4,
+    tag: "New",
+    productSlugs: [
+      "oval-lab-grown-diamond-ring",
+      "pear-lab-grown-diamond-ring",
+      "cushion-cut-lab-diamond-ring",
+      "oval-lab-diamond-statement-ring",
+    ],
+  },
+];
+
+export function getAdminCollections(): AdminCollection[] {
+  if (typeof window === "undefined") return defaultAdminCollections;
+  try {
+    const raw = localStorage.getItem(COLLECTIONS_KEY);
+    if (!raw) return defaultAdminCollections;
+    const parsed = JSON.parse(raw) as AdminCollection[];
+    return parsed.length > 0 ? parsed : defaultAdminCollections;
+  } catch {
+    return defaultAdminCollections;
+  }
+}
+
+export function saveAdminCollections(collections: AdminCollection[]) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(COLLECTIONS_KEY, JSON.stringify(collections));
+  broadcastSync(COLLECTIONS_KEY);
+}
+
+// ==================== Catalog Content ====================
+const CATALOG_KEY = ADMIN_KEYS.pageContent + "::catalog";
+
+export interface AdminCatalogPage {
+  id: number;
+  leftImage: string;
+  leftTitle: string;
+  leftSubtitle: string;
+  leftProducts: { name: string; slug: string; price: string }[];
+  rightImage: string;
+  rightTitle: string;
+  rightSubtitle: string;
+  rightProducts?: { name: string; slug: string; price: string }[];
+  promoText?: string;
+  promoColor?: string;
+}
+
+export const defaultAdminCatalog: AdminCatalogPage[] = [
+  {
+    id: 1,
+    leftImage: "/images/jewelry/ring-120.png",
+    leftTitle: "Engagement Collection",
+    leftSubtitle: "Say Yes Forever",
+    leftProducts: [
+      { name: "Round Brilliant Solitaire", slug: "round-brilliant-moissanite-ring", price: "$2,980" },
+      { name: "Oval Lab Diamond Ring", slug: "oval-lab-grown-diamond-ring", price: "$5,280" },
+    ],
+    rightImage: "/images/jewelry/ring-150.png",
+    rightTitle: "Pear Cut Moissanite",
+    rightSubtitle: "1.5ct Teardrop Elegance",
+    promoText: "BESTSELLER",
+    promoColor: "bg-amber-700",
+  },
+  {
+    id: 2,
+    leftImage: "/images/jewelry/ring-100.png",
+    leftTitle: "Moissanite Collection",
+    leftSubtitle: "Fire & Brilliance",
+    leftProducts: [
+      { name: "Pear Cut Moissanite", slug: "pear-cut-moissanite-ring", price: "$4,280" },
+      { name: "Emerald Cut Moissanite", slug: "emerald-cut-moissanite-ring", price: "$5,680" },
+    ],
+    rightImage: "/images/jewelry/ring-105.png",
+    rightTitle: "Princess Cut Moissanite",
+    rightSubtitle: "Modern Geometric Beauty",
+    rightProducts: [
+      { name: "Princess Cut Ring", slug: "princess-cut-moissanite-ring", price: "$3,680" },
+      { name: "Cushion Engagement Ring", slug: "cushion-moissanite-engagement-ring", price: "$4,580" },
+    ],
+  },
+  {
+    id: 3,
+    leftImage: "/images/jewelry/ring-108.png",
+    leftTitle: "Lab-Grown Diamonds",
+    leftSubtitle: "Ethical Luxury",
+    leftProducts: [
+      { name: "Cushion Lab Diamond", slug: "cushion-cut-lab-diamond-ring", price: "$6,280" },
+      { name: "Pear Lab Diamond", slug: "pear-lab-grown-diamond-ring", price: "$6,880" },
+    ],
+    rightImage: "/images/jewelry/ring-154.png",
+    rightTitle: "Oval Statement Ring",
+    rightSubtitle: "2.5ct Platinum",
+    promoText: "NEW",
+    promoColor: "bg-champagne",
+  },
+];
+
+export function getAdminCatalog(): AdminCatalogPage[] {
+  if (typeof window === "undefined") return defaultAdminCatalog;
+  try {
+    const raw = localStorage.getItem(CATALOG_KEY);
+    if (!raw) return defaultAdminCatalog;
+    const parsed = JSON.parse(raw) as AdminCatalogPage[];
+    return parsed.length > 0 ? parsed : defaultAdminCatalog;
+  } catch {
+    return defaultAdminCatalog;
+  }
+}
+
+export function saveAdminCatalog(pages: AdminCatalogPage[]) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(CATALOG_KEY, JSON.stringify(pages));
+  broadcastSync(CATALOG_KEY);
 }
