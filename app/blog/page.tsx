@@ -1,65 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { products as defaultProducts } from "@/lib/data";
-import { getAdminProducts, subscribeToAdminData, ADMIN_KEYS } from "@/lib/admin-data";
-import { useI18n } from "@/lib/i18n/context";
-import { useCurrency } from "@/lib/currency/context";
-import { formatPrice } from "@/lib/currency/utils";
-import { ArrowRight, Clock, Tag, BookOpen } from "lucide-react";
+import { blogPosts } from "@/lib/blog-data";
+import { ArrowRight, Clock, Tag, BookOpen, Search } from "lucide-react";
+
+const categories = ["All", "Education", "Buying Guide", "Care Guide", "Inspiration"];
 
 export default function BlogPage() {
-  const { locale } = useI18n();
-  const { currency } = useCurrency();
-  const [allProducts, setAllProducts] = useState(defaultProducts);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const loadProducts = () => {
-    const loaded = getAdminProducts(defaultProducts);
-    setAllProducts(loaded);
-  };
-
-  useEffect(() => {
-    loadProducts();
-    return subscribeToAdminData((key) => {
-      if (key === ADMIN_KEYS.products) loadProducts();
+  const filtered = useMemo(() => {
+    return blogPosts.filter((post) => {
+      const matchCat = activeCategory === "All" || post.category === activeCategory;
+      const q = searchQuery.trim().toLowerCase();
+      const matchSearch =
+        !q ||
+        post.title.toLowerCase().includes(q) ||
+        post.excerpt.toLowerCase().includes(q) ||
+        post.category.toLowerCase().includes(q);
+      return matchCat && matchSearch;
     });
-  }, []);
+  }, [activeCategory, searchQuery]);
 
-  const featured = allProducts[0];
-  const rest = allProducts.slice(1);
-  const isZh = locale === "zh";
-
-  const guides = [
-    {
-      title: isZh ? "莫桑石 vs 钻石：完整对比指南" : "Moissanite vs Diamond: The Complete Comparison",
-      desc: isZh
-        ? "深入了解莫桑石与钻石在亮度、硬度、价格和道德层面的差异，帮助您做出明智选择。"
-        : "Discover the differences in brilliance, hardness, price, and ethics between moissanite and diamonds.",
-      slug: "moissanite-vs-diamond-guide",
-      readTime: isZh ? "12 分钟" : "12 min read",
-      category: isZh ? "宝石科普" : "Gemstone Guide",
-    },
-    {
-      title: isZh ? "如何挑选完美的订婚戒指" : "How to Choose the Perfect Engagement Ring",
-      desc: isZh
-        ? "从4C标准到戒指款式，从预算规划到尺寸测量，全面解析订婚戒指选购要点。"
-        : "From the 4Cs to ring styles, budget planning to sizing — everything you need to know.",
-      slug: "engagement-ring-buying-guide",
-      readTime: isZh ? "15 分钟" : "15 min read",
-      category: isZh ? "购买指南" : "Buying Guide",
-    },
-    {
-      title: isZh ? "培育钻石的真相：您需要知道的一切" : "The Truth About Lab-Grown Diamonds",
-      desc: isZh
-        ? "它们是真正的钻石吗？如何制造的？与天然钻石有什么区别？一文解答所有疑问。"
-        : "Are they real diamonds? How are they made? We answer the most common questions.",
-      slug: "lab-grown-diamond-guide",
-      readTime: isZh ? "10 分钟" : "10 min read",
-      category: isZh ? "宝石科普" : "Gemstone Guide",
-    },
-  ];
+  const featured = blogPosts[0];
+  const rest = filtered.filter((p) => p.slug !== featured?.slug);
 
   return (
     <div className="bg-cream min-h-screen pt-28 pb-20">
@@ -72,108 +39,97 @@ export default function BlogPage() {
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] uppercase text-charcoal/40 mb-4">
-            {isZh ? "珠宝知识与购买指南" : "Jewelry Knowledge & Buying Guides"}
+            Jewelry Knowledge & Buying Guides
           </p>
           <h1 className="font-serif text-4xl md:text-5xl text-charcoal mb-6">
-            {isZh ? "Anyhave 珠宝学院" : "Anyhave Jewelry Academy"}
+            Anyhave Jewelry Academy
           </h1>
           <p className="text-charcoal/60 max-w-2xl mx-auto">
-            {isZh
-              ? "专业的珠宝科普文章与购买指南，助您在选购莫桑石和培育钻石时做出明智决策。"
-              : "Expert jewelry guides and educational content to help you make informed decisions when shopping for moissanite and lab-grown diamonds."}
+            Expert jewelry guides and educational content to help you make informed
+            decisions when shopping for moissanite and lab-grown diamonds.
           </p>
         </motion.div>
 
-        {/* Educational Guides */}
+        {/* Search */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-20"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="max-w-md mx-auto mb-12"
         >
-          <div className="flex items-center gap-3 mb-8">
-            <BookOpen className="w-5 h-5 text-charcoal/40" />
-            <h2 className="font-serif text-2xl text-charcoal">
-              {isZh ? "热门科普文章" : "Featured Guides"}
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {guides.map((guide, i) => (
-              <div
-                key={guide.slug}
-                className="group block bg-white border border-black/5 p-6 hover:shadow-lg transition-shadow"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <Tag className="w-3 h-3 text-champagne" />
-                  <span className="text-[10px] tracking-widest uppercase text-charcoal/40">
-                    {guide.category}
-                  </span>
-                </div>
-                <h3 className="text-base font-medium text-charcoal mb-2 group-hover:text-champagne transition-colors leading-snug">
-                  {guide.title}
-                </h3>
-                <p className="text-sm text-charcoal/50 line-clamp-2 mb-4">
-                  {guide.desc}
-                </p>
-                <div className="flex items-center gap-1 text-xs text-charcoal/30">
-                  <Clock className="w-3 h-3" />
-                  {guide.readTime}
-                </div>
-              </div>
-            ))}
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal/30" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search articles..."
+              className="w-full pl-11 pr-4 py-3 bg-white border border-black/5 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-champagne transition-colors"
+            />
           </div>
         </motion.div>
 
-        {/* Divider */}
-        <div className="border-t border-black/5 mb-16" />
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex flex-wrap justify-center gap-2 mb-16"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-5 py-2 text-xs tracking-widest uppercase transition-all border ${
+                activeCategory === cat
+                  ? "border-charcoal bg-charcoal text-white"
+                  : "border-black/10 text-charcoal/60 hover:border-charcoal/30 hover:text-charcoal"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </motion.div>
 
-        {/* Product Guides Header */}
-        <div className="flex items-center gap-3 mb-8">
-          <BookOpen className="w-5 h-5 text-charcoal/40" />
-          <h2 className="font-serif text-2xl text-charcoal">
-            {isZh ? "产品深度指南" : "Product Deep Dives"}
-          </h2>
-        </div>
-
-        {/* Featured Product Story */}
-        {featured && (
+        {/* Featured Article */}
+        {featured && activeCategory === "All" && !searchQuery && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-16"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-20"
           >
+            <div className="flex items-center gap-3 mb-8">
+              <BookOpen className="w-5 h-5 text-charcoal/40" />
+              <h2 className="font-serif text-2xl text-charcoal">Featured Guide</h2>
+            </div>
             <Link href={`/blog/${featured.slug}/`} className="group block">
               <div className="grid md:grid-cols-2 gap-8 bg-white border border-black/5 overflow-hidden">
                 <div className="aspect-[4/3] md:aspect-auto bg-stone overflow-hidden">
                   <img
                     src={featured.image}
-                    alt={featured.name}
+                    alt={featured.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="px-3 py-1 bg-cream text-[10px] tracking-widest uppercase text-charcoal/60 border border-black/5">
-                      {featured.tierLabel}
+                      {featured.category}
                     </span>
-                    <span className="text-xs text-charcoal/30">
-                      {featured.material}
+                    <span className="flex items-center gap-1 text-xs text-charcoal/30">
+                      <Clock className="w-3 h-3" />
+                      {featured.readTime}
                     </span>
                   </div>
-                  <h2 className="font-serif text-2xl md:text-3xl text-charcoal mb-4 group-hover:text-champagne transition-colors">
-                    {isZh ? `${featured.name}完全指南` : `The Complete Guide to ${featured.name}`}
-                  </h2>
+                  <h3 className="font-serif text-2xl md:text-3xl text-charcoal mb-4 group-hover:text-champagne transition-colors">
+                    {featured.title}
+                  </h3>
                   <p className="text-charcoal/50 leading-relaxed mb-6">
-                    {featured.description}
+                    {featured.excerpt}
                   </p>
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-xl font-light tracking-wide text-charcoal">
-                      {formatPrice(featured.price, currency)}
-                    </span>
-                  </div>
                   <span className="inline-flex items-center gap-2 text-xs text-champagne underline underline-offset-4">
-                    {isZh ? "阅读完整指南" : "Read the Full Guide"}
+                    Read Full Guide
                     <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>
@@ -182,45 +138,65 @@ export default function BlogPage() {
           </motion.div>
         )}
 
-        {/* Product Story Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rest.map((product, i) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-            >
-              <Link href={`/blog/${product.slug}/`} className="group block">
-                <div className="aspect-[4/3] bg-stone overflow-hidden mb-4">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-[10px] tracking-widest uppercase text-charcoal/40">
-                    {product.tierLabel}
-                  </span>
-                  <span className="text-[10px] text-charcoal/20">|</span>
-                  <span className="text-[10px] text-charcoal/30">
-                    {isZh ? "购买指南" : "Buying Guide"}
-                  </span>
-                </div>
-                <h3 className="text-base font-medium text-charcoal mb-2 group-hover:text-champagne transition-colors">
-                  {isZh ? `${product.name}完全指南` : `Guide to ${product.name}`}
-                </h3>
-                <p className="text-sm text-charcoal/50 line-clamp-2 mb-3">
-                  {product.description}
-                </p>
-                <p className="text-sm font-medium tracking-wide text-charcoal">
-                  {formatPrice(product.price, currency)}
-                </p>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+        {/* Article Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <BookOpen className="w-5 h-5 text-charcoal/40" />
+            <h2 className="font-serif text-2xl text-charcoal">
+              {searchQuery ? `Search Results (${filtered.length})` : "All Guides"}
+            </h2>
+          </div>
+
+          {filtered.length === 0 ? (
+            <div className="py-24 text-center">
+              <p className="text-charcoal/40">No articles found matching your criteria.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(activeCategory === "All" && !searchQuery ? rest : filtered).map((post, i) => (
+                <motion.div
+                  key={post.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 + i * 0.06 }}
+                >
+                  <Link href={`/blog/${post.slug}/`} className="group block bg-white border border-black/5 hover:shadow-lg transition-shadow">
+                    <div className="aspect-[16/10] bg-stone overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Tag className="w-3 h-3 text-champagne" />
+                        <span className="text-[10px] tracking-widest uppercase text-charcoal/40">
+                          {post.category}
+                        </span>
+                        <span className="text-[10px] text-charcoal/20">|</span>
+                        <span className="flex items-center gap-1 text-[10px] text-charcoal/30">
+                          <Clock className="w-3 h-3" />
+                          {post.readTime}
+                        </span>
+                      </div>
+                      <h3 className="text-base font-medium text-charcoal mb-2 group-hover:text-champagne transition-colors leading-snug">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-charcoal/50 line-clamp-2">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </motion.div>
       </div>
     </div>
   );
