@@ -261,7 +261,7 @@ export default function CustomizeAdminPage() {
               onClick={() =>
                 updateField("stones", [
                   ...content.stones,
-                  { id: `stone-${Date.now()}`, nameEn: "New Stone", nameZh: "新宝石", price: 0, color: "#e8e0d0", type: "moissanite" },
+                  { id: `stone-${Date.now()}`, nameEn: "New Stone", nameZh: "新宝石", price: 0, color: "#e8e0d0", type: "moissanite", image: "" },
                 ])
               }
               className="flex items-center gap-2 px-3 py-1.5 text-xs border border-black/10 hover:border-charcoal/30 transition-colors"

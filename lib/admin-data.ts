@@ -680,6 +680,7 @@ export interface StoneItem {
   price: number;
   color: string;
   type: "moissanite" | "lab";
+  image: string;
 }
 
 export interface MetalItem {
@@ -726,10 +727,10 @@ export const defaultCustomizeContent: CustomizeContent = {
     { id: "vintage", labelEn: "Vintage", labelZh: "复古", image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&h=600&fit=crop", price: 1500 },
   ],
   stones: [
-    { id: "round-moissanite", nameEn: "Round Brilliant Moissanite", nameZh: "圆形明亮式莫桑石", price: 2980, color: "#e8e0d0", type: "moissanite" },
-    { id: "cushion-moissanite", nameEn: "Cushion Cut Moissanite", nameZh: "枕形切割莫桑石", price: 3280, color: "#d4c4a8", type: "moissanite" },
-    { id: "round-lab", nameEn: "Round Lab-Grown Diamond", nameZh: "圆形培育钻石", price: 5680, color: "#f0f0f0", type: "lab" },
-    { id: "oval-lab", nameEn: "Oval Lab-Grown Diamond", nameZh: "椭圆形培育钻石", price: 6280, color: "#e8d8e0", type: "lab" },
+    { id: "round-moissanite", nameEn: "Round Brilliant Moissanite", nameZh: "圆形明亮式莫桑石", price: 2980, color: "#e8e0d0", type: "moissanite", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&h=600&fit=crop" },
+    { id: "cushion-moissanite", nameEn: "Cushion Cut Moissanite", nameZh: "枕形切割莫桑石", price: 3280, color: "#d4c4a8", type: "moissanite", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop" },
+    { id: "round-lab", nameEn: "Round Lab-Grown Diamond", nameZh: "圆形培育钻石", price: 5680, color: "#f0f0f0", type: "lab", image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600&h=600&fit=crop" },
+    { id: "oval-lab", nameEn: "Oval Lab-Grown Diamond", nameZh: "椭圆形培育钻石", price: 6280, color: "#e8d8e0", type: "lab", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=600&fit=crop" },
   ],
   metals: [
     { id: "14k-white", nameEn: "14K White Gold", nameZh: "14K白金", price: 0, color: "#e0e0e0" },

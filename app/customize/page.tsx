@@ -115,7 +115,8 @@ export default function CustomizePage() {
 
   const [config, setConfig] = useState<CustomizeContent>(defaultCustomizeContent)
   const [step, setStep] = useState(1)
-  const [stoneType, setStoneType] = useState<'moissanite' | 'lab'>('moissanite')
+  const [selectedStoneId, setSelectedStoneId] = useState<string>('round-moissanite')
+  const [previewImage, setPreviewImage] = useState<string | null>(null)
   const [shape, setShape] = useState('round')
   const [cut, setCut] = useState('Ideal')
   const [color, setColor] = useState('D')
@@ -145,6 +146,7 @@ export default function CustomizePage() {
   }))
 
   const stones = config.stones.map((s) => ({
+    id: s.id,
     name: isZh ? s.nameZh : s.nameEn,
     desc: s.type === 'lab'
       ? (isZh ? '培育钻石' : 'Lab-Grown Diamond')
@@ -152,12 +154,14 @@ export default function CustomizePage() {
     color: s.color,
     price: s.price,
     type: s.type as 'moissanite' | 'lab',
+    image: s.image,
   }))
 
   /* ── Price Calculation ── */
   const basePrice = useMemo(() => {
-    const stone = stones.find((s) => s.type === stoneType)
+    const stone = stones.find((s) => s.id === selectedStoneId)
     const stonePrice = stone?.price || 0
+    const stoneType = stone?.type || 'moissanite'
     const caratMultiplier = carat * (stoneType === 'lab' ? 800 : 200)
     const cutMultiplier = { Ideal: 1.3, Excellent: 1.15, 'Very Good': 1.0, Good: 0.85 }[cut] || 1
     const colorMultiplier = { D: 1.3, E: 1.2, F: 1.1, G: 1.0, H: 0.9, I: 0.8, J: 0.7 }[color] || 1
@@ -166,9 +170,9 @@ export default function CustomizePage() {
     const stylePrice = { solitaire: 0, halo: 300, pavé: 400, 'three-stone': 500, vintage: 350 }[style] || 0
 
     return Math.round((stonePrice + caratMultiplier) * cutMultiplier * colorMultiplier * clarityMultiplier + metalPrice + stylePrice)
-  }, [stoneType, carat, cut, color, clarity, metal, style, stones])
+  }, [selectedStoneId, carat, cut, color, clarity, metal, style, stones])
 
-  const selectedStone = stones.find((s) => s.type === stoneType)
+  const selectedStone = stones.find((s) => s.id === selectedStoneId)
   const selectedShape = SHAPES.find((s) => s.id === shape)
   const selectedStyleObj = ringStyles.find((s) => s.id === style)
   const selectedMetal = METALS.find((m) => m.id === metal)
@@ -331,37 +335,68 @@ export default function CustomizePage() {
                 <p className='text-charcoal/50 max-w-xl mx-auto'>{isZh ? '莫桑石还是培育钻石？两种选择同样璀璨，各有特色。' : 'Moissanite or lab-grown diamond? Both brilliant, each unique.'}</p>
               </div>
 
-              <div className='grid md:grid-cols-2 gap-6 max-w-4xl mx-auto'>
+              <div className='grid md:grid-cols-2 gap-6 max-w-5xl mx-auto'>
                 {stones.map((s) => (
                   <button
-                    key={s.type}
-                    onClick={() => setStoneType(s.type)}
-                    className={`relative p-8 border text-left transition-all ${
-                      stoneType === s.type
+                    key={s.id}
+                    onClick={() => setSelectedStoneId(s.id)}
+                    className={`relative border text-left transition-all overflow-hidden ${
+                      selectedStoneId === s.id
                         ? 'border-champagne bg-cream/50'
                         : 'border-black/5 bg-white hover:border-champagne/30'
                     }`}
                   >
-                    {stoneType === s.type && (
-                      <div className='absolute top-4 right-4 w-6 h-6 bg-champagne flex items-center justify-center'>
-                        <Check className='w-4 h-4 text-white' />
-                      </div>
-                    )}
-                    <div className='flex items-center gap-3 mb-4'>
-                      <span className='w-10 h-10 rounded-full border border-black/10' style={{ backgroundColor: s.color }} />
-                      <div>
-                        <p className='text-lg font-medium text-charcoal'>{s.name}</p>
-                        <p className='text-xs text-charcoal/40'>{s.desc}</p>
+                    {/* Image */}
+                    <div className='relative aspect-[16/10] bg-stone overflow-hidden'>
+                      <img
+                        src={s.image}
+                        alt={s.name}
+                        className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ${
+                          selectedStoneId === s.id ? 'scale-105' : 'scale-100'
+                        }`}
+                      />
+                      <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent' />
+
+                      {/* Preview button */}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setPreviewImage(s.image) }}
+                        className='absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors'
+                        title={isZh ? '查看大图' : 'View larger'}
+                      >
+                        <ImageIcon className='w-4 h-4 text-charcoal' />
+                      </button>
+
+                      {/* Selected check */}
+                      {selectedStoneId === s.id && (
+                        <div className='absolute top-3 left-3 w-8 h-8 bg-champagne flex items-center justify-center'>
+                          <Check className='w-5 h-5 text-white' />
+                        </div>
+                      )}
+
+                      {/* Type badge */}
+                      <div className='absolute bottom-3 left-3'>
+                        <span className={`px-3 py-1 text-[10px] tracking-widest uppercase ${
+                          s.type === 'lab'
+                            ? 'bg-white/90 text-charcoal/70'
+                            : 'bg-champagne/90 text-white'
+                        }`}>
+                          {s.desc}
+                        </span>
                       </div>
                     </div>
-                    <p className='text-sm text-charcoal/60 leading-relaxed mb-4'>
-                      {s.type === 'lab'
-                        ? (isZh ? '与天然钻石完全相同的化学结构，经 IGI 认证，环保可持续。' : 'Identical chemical structure to natural diamonds, IGI certified, eco-friendly.')
-                        : (isZh ? '折射率高于钻石，火彩更绚丽，硬度 9.25，极具性价比。' : 'Higher refractive index than diamonds, more colorful fire, hardness 9.25, exceptional value.')}
-                    </p>
-                    <p className='text-xs text-charcoal/40'>
-                      {isZh ? '起价 ' : 'From '}{formatPrice(s.price, currency)}
-                    </p>
+
+                    {/* Info */}
+                    <div className='p-6'>
+                      <div className='flex items-center justify-between mb-2'>
+                        <p className='text-base font-medium text-charcoal'>{s.name}</p>
+                        <p className='text-sm font-medium text-champagne'>{formatPrice(s.price, currency)}</p>
+                      </div>
+                      <p className='text-xs text-charcoal/50 leading-relaxed'>
+                        {s.type === 'lab'
+                          ? (isZh ? '与天然钻石完全相同的化学结构，经 IGI 认证，环保可持续。' : 'Identical chemical structure to natural diamonds, IGI certified, eco-friendly.')
+                          : (isZh ? '折射率高于钻石，火彩更绚丽，硬度 9.25，极具性价比。' : 'Higher refractive index than diamonds, more colorful fire, hardness 9.25, exceptional value.')}
+                      </p>
+                    </div>
                   </button>
                 ))}
               </div>
@@ -817,7 +852,7 @@ export default function CustomizePage() {
                     {isZh ? '修改选择' : 'Edit Selection'}
                   </button>
                   <Link
-                    href={`/contact/?subject=custom-ring&stone=${stoneType}&shape=${shape}&cut=${cut}&color=${color}&clarity=${clarity}&carat=${carat}&style=${style}&metal=${metal}&size=${ringSize}&price=${basePrice}`}
+                    href={`/contact/?subject=custom-ring&stone=${selectedStoneId}&shape=${shape}&cut=${cut}&color=${color}&clarity=${clarity}&carat=${carat}&style=${style}&metal=${metal}&size=${ringSize}&price=${basePrice}`}
                     className='inline-flex items-center gap-2 px-8 py-3.5 bg-charcoal text-white text-sm tracking-widest font-medium hover:bg-graphite transition-colors'
                   >
                     <ShoppingBag className='w-4 h-4' />
@@ -1032,6 +1067,40 @@ export default function CustomizePage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ─── Image Preview Modal ─── */}
+      <AnimatePresence>
+        {previewImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className='fixed inset-0 z-[100] flex items-center justify-center p-4'
+            onClick={() => setPreviewImage(null)}
+          >
+            <div className='absolute inset-0 bg-black/80' />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className='relative max-w-4xl max-h-[90vh] w-full'
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setPreviewImage(null)}
+                className='absolute -top-12 right-0 w-10 h-10 bg-white/10 backdrop-blur flex items-center justify-center hover:bg-white/20 transition-colors'
+              >
+                <X className='w-5 h-5 text-white' />
+              </button>
+              <img
+                src={previewImage}
+                alt='Preview'
+                className='w-full h-full object-contain max-h-[85vh]'
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Bottom padding for sticky bar */}
       {step < 4 && <div className='h-20' />}
