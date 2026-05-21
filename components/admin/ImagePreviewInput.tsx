@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { Image, X, Upload, Loader2 } from "lucide-react";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 interface ImagePreviewInputProps {
   value: string;
@@ -42,21 +43,8 @@ export default function ImagePreviewInput({
     setUploadError("");
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Upload failed");
-      }
-
-      handleChange(data.url);
+      const result = await uploadToCloudinary(file);
+      handleChange(result.secure_url);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Upload failed";
       setUploadError(msg);
